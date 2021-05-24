@@ -16,3 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('standard_user')->group(function () { // url example: "/standard_user/produk"
+    
+    Route::get('menu', 'StandardUserController@menu');
+    Route::get('produk', 'StandardUserController@produk'); 
+    
+    Route::get('transaksi', 'StandardUserController@transaksi'); 
+});
