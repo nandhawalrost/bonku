@@ -1,186 +1,154 @@
-<html>
-<head><title></title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<body>
-@if (session('status'))
-    <div class="alert alert-success" role="alert">
-        {{ session('status') }}
-        
+@include('header.index')
+
+
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif
 
-{{ __('You are logged in!') }}
-{{--($id_transaksi_terakhir)--}}
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+<form class="form" action="/standard_user/menu/transaksi/store_transaksi" method="POST">
 
-<nav class="navbar sticky-top navbar-dark bg-dark justify-content-between">
-<a class="navbar-brand">Apps Tokotokotok</a>
-<form class="form-inline">
-    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-  </form>
-</nav>
+  {{csrf_field()}}    
 
-<div class = "container">
-
-<h3 class = "p-3">Transaksi</h3>
-<form class="w-75 p-3" action="/produk/create" method="POST">
-
-{{csrf_field()}}
-
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">ID Pelanggan</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" name="id_pelanggan" placeholder="ID Pelanggan">
-        </div>
-    </div>
-
-</form>
-
-<!--table class="table table-hover col-10">
-    <tr>
-        <th>ID</th>
-        <th>ID PELANGGAN</th>
-        <th>TOTAL HARGA</th>
-        <th>DIBAYAR</th>
-        <th>KEMBALIAN</th>
-        <th>AKSI</th>
-    </tr>
-
-    @foreach($data_transaksi as $transaksi)
-    <tr>
-        <td>{{$transaksi->id}}</td>
-        <td>{{$transaksi->id_pelanggan}}</td>
-        <td>{{$transaksi->total_harga}}</td>
-        <td>{{$transaksi->dibayar}}</td>
-        <td>{{$transaksi->kembalian}}</td>
-        <td>
-        <a href="" class="btn btn-warning btn-sm">Edit</a>
-        <a href="" class="btn btn-danger btn-sm">Delete</a>
-        </td>
-    </tr>
-    @endforeach
-</table -->
-
-
-<form class="w-75 p-3" action="/transaksi/create" method="POST">
-
-{{csrf_field()}}
-
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label" >ID Transaksi</label>
-        <div class="col-sm-10">
-            
-        <input type="text" class="form-control-plaintext" name="id_transaksi" placeholder="ID Transaksi" value="{{($id_transaksi_terakhir)}}" readonly>    
-            
-
-            
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputEmail3" class="col-sm-2 col-form-label">Nama Produk</label>
-        <div class="col-sm-10">
-        <input type="text" class="form-control" name="nama_produk" placeholder="Nama Produk">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Qty</label>
-        <div class="col-sm-10">
-        <input type="number" class="form-control" name="qty" placeholder="Qty">
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Harga</label>
-        <div class="col-sm-10">
-        <input type="number" class="form-control" name="harga" placeholder="Harga">
-        </div>
-    </div>
-
+<div class="container-sm">
   <div class="form-group row">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-dark ">Tambah</button>
+    <label for="" class="col-sm-2 col-form-label">Nama Pelanggan</label>
+    <div class="col-sm-6">
+      <input name = "nama_pelanggan" type="text" class="form-control" id="" placeholder="Nama Pelanggan">
     </div>
   </div>
-</form>
-
-<table class="table table-hover col-8">
-    <tr>
-        <th>ID Rincian</th>
-        <th>ID Transaksi</th>
-        <th>Nama Produk</th>
-        <th>Qty</th>
-        <th>Harga</th>
-        <th></th>
-    </tr>
-
-    @foreach($data_rinciantransaksi as $rtransaksi)
-    <tr>
-        <td>{{$rtransaksi->id}}</td>
-        <td>{{$rtransaksi->id_transaksi}}</td>
-        <td>{{$rtransaksi->nama_produk}}</td>
-        <td>{{$rtransaksi->qty}}</td>
-        <td>{{$rtransaksi->harga}}</td>
-        <td>
-        <a href="" class="btn btn-secondary btn-sm">Delete</a>
-        </td>
-    </tr>
-    @endforeach
-</table>
-
-<form class="w-75 p-3" action="/transaksi/bayar" method="POST">
-
-{{csrf_field()}}
-
-    <input type="text" class="form-control-plaintext" name="id_transaksi" placeholder="ID Transaksi" value="{{($id_transaksi_terakhir)}}" readonly>    
-
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Total Harga</label>
-        <div class="col-sm-10">
-        <input id="total_harga" type="number" class="form-control" name="total_harga" placeholder="Total Harga" value="{{$sum_harga}}" onchange ='calculate()' >
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Dibayar</label>
-        <div class="col-sm-10">
-        <input id = "dibayar" type="number" class="form-control" name="dibayar" placeholder="Dibayar" onchange ='calculate()' >
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputPassword3" class="col-sm-2 col-form-label">Kembalian</label>
-        <div class="col-sm-10">
-        <input id = "kembalian" type="number" class="form-control" name="kembalian" placeholder="Kembalian" onchange ='calculate()' >
-        </div>
-    </div>
-  
- 
   <div class="form-group row">
-    <div class="col-sm-10">
-      <button type="submit" class="btn btn-dark btn-lg btn-block">Bayar</button>
-      <button type="submit" class="btn btn-secondary btn-lg btn-block">Batal</button>
+    <label for="" class="col-sm-2 col-form-label">Keterangan</label>
+    <div class="col-sm-6">
+      <input name = "keterangan" type="text" class="form-control" id="" placeholder="Keterangan">
     </div>
   </div>
-</form>
 </div>
+
+<div class="container-sm">
+<div class="box">
+  <div class="box-header">
+    <div class="box-body table-responsive">
+      <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
+        <thead class="thead-light">
+          <th>Nama Produk</th>
+          <th>Jumlah</th>
+          <th>Harga</th>
+          <th>Sub Total</th>
+        </thead>
+
+        <thead class="thead-light">
+          <th>
+                <input type="text" name="nama_produk"  class="form-control" list="nama_produk"/>
+                    <datalist id="nama_produk">
+                        <option value="Pen">Pen</option>
+                        <option value="Pencil">Pencil</option>
+                        <option value="Paper">Paper</option>
+                    </datalist>
+          </th>
+          <th>
+                <input name = "jumlah" type="text" class="form-control" id="">
+          </th>
+          <th>
+                
+          </th>
+          <th>
+                
+          </th>
+        </thead>
+        <tbody>
+          
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+              <a href="">Hapus</a>
+            </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="container-sm">
+
+    <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Total</label>
+        <div class="col-sm-6">
+        <input name = "" value = "{{$sum_sub_total_terakhir}}" type="text" class="form-control" id="" placeholder="Total">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Dibayar</label>
+        <div class="col-sm-6">
+        <input name = "total_bayar" type="text" class="form-control" id="" placeholder="Dibayar">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="" class="col-sm-2 col-form-label">Uang Kembali</label>
+        <div class="col-sm-6">
+        <input name = "total_kembali" type="text" class="form-control" id="" placeholder="Uang Kembali">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Input</button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <button type="button" class="btn btn-dark btn-lg btn-block">Cetak</button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <button type="reset" class="btn btn-secondary btn-lg btn-block">Reset</button>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <button type="button" class="btn btn-dark btn-lg btn-block">Buat Transaksi Baru</button>
+        </div>
+    </div>
+
+</div>
+
+</form>
+
+
+
+</br>
+<div class="container-sm mb-3">
+<a href="/standard_user/menu" class="btn btn-secondary btn-lg btn-block">Kembali</a>
+</div>
+
+<!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+    -->
 </body>
 
-<script>
 
-function calculate() {
-		var total_harga = document.getElementById('total_harga').value;	
-		var dibayar = document.getElementById('dibayar').value;
-		var kembalian = document.getElementById('kembalian');	
-		var hasil = (+dibayar - +total_harga);
-		kembalian.value = hasil;
-      
-		
-	}
-</script>
 
-</html>
+@include('footer.index')

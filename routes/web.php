@@ -20,7 +20,19 @@ Route::get('/', function () {
 Route::prefix('standard_user')->group(function () { // url example: "/standard_user/produk"
     
     Route::get('menu', 'StandardUserController@menu');
-    Route::get('produk', 'StandardUserController@produk'); 
+
+    Route::get('/menu/produk', 'ProdukController@produk'); 
+    Route::post('/menu/produk/store','ProdukController@store');
+    Route::get('/menu/produk/{id}/edit','ProdukController@edit');
+    Route::post('/menu/produk/{id}/update','ProdukController@update');
+    Route::get('/menu/produk/{id}/delete_confirmation','ProdukController@delete_confirmation');
+    Route::get('/menu/produk/{id}/destroy','ProdukController@destroy');
     
-    Route::get('transaksi', 'StandardUserController@transaksi'); 
+    Route::get('/menu/transaksi', 'TransaksiController@transaksi');
+    Route::post('/menu/transaksi/store_transaksi','TransaksiController@store_transaksi'); 
+    Route::post('/menu/transaksi/store_rincian_transaksi','TransaksiController@store_rincian_transaksi'); 
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

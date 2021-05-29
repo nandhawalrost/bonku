@@ -1,6 +1,6 @@
 @include('header.index')
 
-<div class="container-sm">
+<div class="container-sm mb-3">
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -12,49 +12,55 @@
     </div>
 @endif
 
-<form class="form" action="/standard_user/menu/produk/{{$produk->id}}/update" method="POST">
+<form class="form" action="/standard_user/menu/produk/{{$produk->id}}/destroy" method="GET">
 
   {{csrf_field()}}    
 
-  <div class="form-group row">
+  <div class="form-group row float">
     <label for="" class="col-sm-2 col-form-label">Nama Produk</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-6">
-      <input name = "nama_produk" value="{{$produk->nama_produk}}" type="text" class="form-control" id="inputEmail3" placeholder="Nama Produk">
+      {{$produk->nama_produk}}
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Jumlah</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
-      <input name = "jumlah" value="{{$produk->jumlah}}" type="number" class="form-control" id="inputEmail3" placeholder="Jumlah">
+      {{$produk->jumlah}}
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Jumlah Minimum</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
-      <input name = "jumlah_minimum" value="{{$produk->jumlah_minimum}}" type="number" class="form-control" id="inputEmail3" placeholder="Jumlah Minimum">
+      {{$produk->jumlah_minimum}}
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Jumlah Maksimum</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
-      <input name = "jumlah_maksimum" value="{{$produk->jumlah_maksimum}}" type="number" class="form-control" id="inputEmail3" placeholder="Jumlah Maksimum">
+      {{$produk->jumlah_maksimum}}
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Harga</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
-      <input name = "harga" value="{{$produk->harga}}" type="number" class="form-control" id="inputEmail3" placeholder="Harga">
+      {{$produk->harga}}
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Satuan</label>
+    <label for="" class="col-sm-2 col-form-label">:</label>
     <div class="col-sm-4">
-      <input name = "satuan" value="{{$produk->satuan}}" type="text" class="form-control" id="inputEmail3" placeholder="Satuan">
+      {{$produk->satuan}}
     </div>
   </div>
   <div class="form-group row">
     <div class="col-sm-12">
-      <button type="submit" class="btn btn-primary btn-lg btn-block">Simpan Perubahan</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Konfirmasi Hapus</button>
     </div>
   </div>
 </form>

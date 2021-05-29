@@ -18,10 +18,6 @@ class StandardUserController extends Controller
         return view('menu.index');
     }
 
-    public function produk()
-    {
-        $data_produk = DB::table('produk')->get();
+    
 
-        return view('menu.produk.index', compact('data_produk'));
-    }
 }
