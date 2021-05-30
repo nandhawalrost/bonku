@@ -13,10 +13,22 @@ class TransaksiController extends Controller
 
         $data_transaksi = DB::table('transaksi')->get();
 
+        $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
+        
+        $nama_produk = DB::table('produk')->get();
+
         $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get()->sum('sub_total');
 
+        if($sum_sub_total_terakhir == 0)
+        {
+            $sum_sub_total_terakhir = null;
 
-        return view('menu.transaksi.index', compact('data_transaksi','sum_sub_total_terakhir'));
+            return view('menu.transaksi.index', compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
+        }else
+        {
+            return view('menu.transaksi.index', compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
+        }
+
     }
 
     public function store_transaksi(Request $request)

@@ -45,11 +45,11 @@
 
         <thead class="thead-light">
           <th>
-                <input type="text" name="nama_produk"  class="form-control" list="nama_produk"/>
+                <input type="text" name="nama_produk"  class="form-control" list="nama_produk" autocomplete="off" />
                     <datalist id="nama_produk">
-                        <option value="Pen">Pen</option>
-                        <option value="Pencil">Pencil</option>
-                        <option value="Paper">Paper</option>
+                    @foreach($nama_produk as $produk)
+                        <option value="{{$produk->nama_produk}}"></option>
+                    @endforeach
                     </datalist>
           </th>
           <th>
@@ -63,17 +63,17 @@
           </th>
         </thead>
         <tbody>
-          
+          @foreach($data_rincian as $rincian)
           <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{$rincian->nama_produk}}</td>
+            <td>{{$rincian->jumlah}}</td>
+            <td>{{$rincian->harga}}</td>
+            <td>{{$rincian->sub_total}}</td>
             <td>
               <a href="">Hapus</a>
             </td>
           </tr>
-          
+          @endforeach
         </tbody>
       </table>
     </div>
@@ -83,24 +83,28 @@
 
 <div class="container-sm">
 
+@if(empty($sum_sub_total_terakhir))
+<!-- tidak ada sub total -->
+@else
     <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">Total</label>
         <div class="col-sm-6">
-        <input name = "" value = "{{$sum_sub_total_terakhir}}" type="text" class="form-control" id="" placeholder="Total">
+        <input name = "" id="total_harga" oninput="hitungKembali()" value = "{{$sum_sub_total_terakhir}}" type="text" class="form-control" id="" placeholder="Total">
         </div>
     </div>
     <div class="form-group row">
-        <label for="" class="col-sm-2 col-form-label">Dibayar</label>
+        <label for="total_bayar" class="col-sm-2 col-form-label">Dibayar</label>
         <div class="col-sm-6">
-        <input name = "total_bayar" type="text" class="form-control" id="" placeholder="Dibayar">
+        <input name="total_bayar" id="total_bayar" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Dibayar">
         </div>
     </div>
     <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">Uang Kembali</label>
         <div class="col-sm-6">
-        <input name = "total_kembali" type="text" class="form-control" id="" placeholder="Uang Kembali">
+        <input name="total_kembali" id="total_kembali" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Uang Kembali">
         </div>
     </div>
+@endif
 
     <div class="form-group row">
         <div class="col-sm-12">
@@ -136,6 +140,18 @@
 <div class="container-sm mb-3">
 <a href="/standard_user/menu" class="btn btn-secondary btn-lg btn-block">Kembali</a>
 </div>
+
+<script>
+function hitungKembali() {
+		var total_harga = document.getElementById('total_harga').value;	
+		var total_bayar = document.getElementById('total_bayar').value;
+		var total_kembali = document.getElementById('total_kembali');	
+		var hasil = (+total_bayar - +total_harga);
+		total_kembali.value = hasil;
+      
+		
+	}
+</script>
 
 <!-- Optional JavaScript; choose one of the two! -->
 
