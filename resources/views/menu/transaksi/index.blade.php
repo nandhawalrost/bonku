@@ -16,20 +16,23 @@
 
   {{csrf_field()}}    
 
+
+@foreach($data_transaksi as $transaksi)
 <div class="container-sm">
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Nama Pelanggan</label>
     <div class="col-sm-6">
-      <input name = "nama_pelanggan" type="text" class="form-control" id="" placeholder="Nama Pelanggan">
+      <input name = "nama_pelanggan" value="{{$transaksi->nama_pelanggan}}" type="text" class="form-control" id="" placeholder="Nama Pelanggan">
     </div>
   </div>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Keterangan</label>
     <div class="col-sm-6">
-      <input name = "keterangan" type="text" class="form-control" id="" placeholder="Keterangan">
+      <input name = "keterangan" value="{{$transaksi->keterangan}}" type="text" class="form-control" id="" placeholder="Keterangan">
     </div>
   </div>
 </div>
+@endforeach
 
 <div class="container-sm">
 <div class="box">
@@ -51,9 +54,10 @@
                         <option value="{{$produk->nama_produk}}"></option>
                     @endforeach
                     </datalist>
+                </input>
           </th>
           <th>
-                <input name = "jumlah" type="text" class="form-control" id="">
+                <input name = "jumlah" type="number" class="form-control" id="">
           </th>
           <th>
                 
@@ -70,7 +74,7 @@
             <td>{{$rincian->harga}}</td>
             <td>{{$rincian->sub_total}}</td>
             <td>
-              <a href="">Hapus</a>
+              <a href="/standard_user/menu/transaksi/{{$rincian->id}}/destroy_rincian">Hapus</a>
             </td>
           </tr>
           @endforeach
@@ -89,21 +93,25 @@
     <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">Total</label>
         <div class="col-sm-6">
-        <input name = "" id="total_harga" oninput="hitungKembali()" value = "{{$sum_sub_total_terakhir}}" type="text" class="form-control" id="" placeholder="Total">
+        <input name = "" id="total_harga" value="{{$sum_sub_total_terakhir}}" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Total">
         </div>
     </div>
+
+    @foreach($data_transaksi as $transaksi)
     <div class="form-group row">
-        <label for="total_bayar" class="col-sm-2 col-form-label">Dibayar</label>
+        <label for="total_bayar" class="col-sm-2 col-form-label">Total Bayar</label>
         <div class="col-sm-6">
-        <input name="total_bayar" id="total_bayar" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Dibayar">
+        <input name="total_bayar" id="total_bayar" value="{{$transaksi->total_bayar}}" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Total Bayar">
         </div>
     </div>
     <div class="form-group row">
         <label for="" class="col-sm-2 col-form-label">Uang Kembali</label>
         <div class="col-sm-6">
-        <input name="total_kembali" id="total_kembali" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Uang Kembali">
+        <input name="total_kembali" id="total_kembali" value="{{$transaksi->total_kembali}}" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Uang Kembali">
         </div>
     </div>
+    @endforeach
+
 @endif
 
     <div class="form-group row">
@@ -115,12 +123,6 @@
     <div class="form-group row">
         <div class="col-sm-12">
         <button type="button" class="btn btn-dark btn-lg btn-block">Cetak</button>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-12">
-        <button type="reset" class="btn btn-secondary btn-lg btn-block">Reset</button>
         </div>
     </div>
 

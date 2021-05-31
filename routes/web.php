@@ -30,7 +30,7 @@ Route::prefix('standard_user')->group(function () { // url example: "/standard_u
     
     Route::get('/menu/transaksi', 'TransaksiController@transaksi');
     Route::post('/menu/transaksi/store_transaksi','TransaksiController@store_transaksi'); 
-    Route::post('/menu/transaksi/store_rincian_transaksi','TransaksiController@store_rincian_transaksi'); 
+    Route::get('/menu/transaksi/{id}/destroy_rincian','TransaksiController@destroy_rincian');
 });
 
 Auth::routes();

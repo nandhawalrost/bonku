@@ -10,13 +10,9 @@ class TransaksiController extends Controller
     public function transaksi()
     {
         $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
-
-        $data_transaksi = DB::table('transaksi')->get();
-
+        $data_transaksi = DB::table('transaksi')->where('id','=',$id_transaksi_terakhir)->get();
         $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
-        
         $nama_produk = DB::table('produk')->get();
-
         $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get()->sum('sub_total');
 
         if($sum_sub_total_terakhir == 0)
@@ -33,46 +29,67 @@ class TransaksiController extends Controller
 
     public function store_transaksi(Request $request)
     {
+        $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
+        $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get()->sum('sub_total');
+
+        //transaksi
         $nama_pelanggan = $request->nama_pelanggan;
-        $keterangan = $request->keterangan;
-        $total_harga = 900000;
-        $total_bayar = 100000;
-        $total_kembali = 10000;
+        $total_harga = $sum_sub_total_terakhir;
+        $total_bayar = $request->total_bayar;
+        $total_kembali = $total_harga - $total_harga;
         $user_email = 'none';
+        $keterangan = $request->keterangan;
+
+        //rincian_transaksi
+        $nama_produk = $request->nama_produk;
+        $jumlah = $request->jumlah;
+        $harga = DB::table('produk')->where('nama_produk','=',$nama_produk)->sum('harga');
+        $sub_total = ($jumlah * $harga);
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
-        DB::table('transaksi')->insert([
-            'nama_pelanggan'=>$nama_pelanggan,
-            'keterangan'=>$keterangan,
-            'total_harga'=>$total_harga,
-            'total_bayar'=>$total_bayar,
-            'total_kembali'=>$total_kembali,
-            'user_email'=>$user_email,
-            "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
-        ]);
+        if(empty($nama_produk)||empty($jumlah))
+        {   
+            $validatedData = $request->validate([
+                'total_bayar' => 'required|max:30'
+            ]);
 
-        return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+            $update_transaksi = DB::table('transaksi')
+            ->where('id',$id_transaksi_terakhir)->update([
+                'nama_pelanggan'=>$nama_pelanggan,
+                'total_harga'=>$total_harga,
+                'total_bayar'=>$total_bayar,
+                'total_kembali'=>$total_kembali,
+                'user_email'=>$user_email,
+                'keterangan'=>$keterangan,
+                'updated_at'=>$carbon_now
+            ]);
+
+            return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+            
+        }elseif(!empty($nama_produk)||!empty($jumlah))
+        {
+            DB::table('rincian_transaksi')->insert([
+                'id_transaksi'=>$id_transaksi_terakhir,
+                'nama_produk'=>$nama_produk,
+                'jumlah'=>$jumlah,
+                'harga'=>$harga,
+                'sub_total'=>$sub_total,
+                "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
+            ]);
+
+            return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+        }
+
+        
+
+        
     }
 
-    public function store_rincian_transaksi()
+    public function destroy_rincian($id)
     {
-        $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
-        
-        $nama_produk = $request->nama_produk;
-        $harga = $request->harga;
-        $jumlah = $request->jumlah;
-        $sub_total = 123;
+        DB::table('rincian_transaksi')->where('id', '=', $id)->delete();
 
-        $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
-
-        DB::table('rincian_transaksi')->insert([
-            'id_transaksi'=>$id_transaksi_terakhir,
-            'nama_produk'=>$nama_produk,
-            'harga'=>$harga,
-            'jumlah'=>$jumlah,
-            'sub_total'=>$sub_total,
-            "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
-        ]);
+        return redirect('/standard_user/menu/transaksi')->with('delete_succeed','Deleted!');
     }
 }
