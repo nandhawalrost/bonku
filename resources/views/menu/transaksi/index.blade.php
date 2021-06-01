@@ -57,7 +57,7 @@
                 </input>
           </th>
           <th>
-                <input name = "jumlah" type="number" class="form-control" id="">
+                <input name = "jumlah" type="number"  autocomplete="off" class="form-control" id="">
           </th>
           <th>
                 
@@ -70,7 +70,7 @@
           @foreach($data_rincian as $rincian)
           <tr>
             <td>{{$rincian->nama_produk}}</td>
-            <td>{{$rincian->jumlah}}</td>
+            <td>{{$rincian->jumlah." ".$rincian->satuan}}</td>
             <td>{{$rincian->harga}}</td>
             <td>{{$rincian->sub_total}}</td>
             <td>
@@ -101,7 +101,7 @@
     <div class="form-group row">
         <label for="total_bayar" class="col-sm-2 col-form-label">Total Bayar</label>
         <div class="col-sm-6">
-        <input name="total_bayar" id="total_bayar" value="{{$transaksi->total_bayar}}" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Total Bayar">
+        <input name="total_bayar" id="total_bayar" value="{{$transaksi->total_bayar}}" min="0" oninput="hitungKembali()" type="text" class="form-control" id="" placeholder="Total Bayar">
         </div>
     </div>
     <div class="form-group row">

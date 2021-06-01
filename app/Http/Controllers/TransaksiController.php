@@ -36,23 +36,31 @@ class TransaksiController extends Controller
         $nama_pelanggan = $request->nama_pelanggan;
         $total_harga = $sum_sub_total_terakhir;
         $total_bayar = $request->total_bayar;
-        $total_kembali = $total_harga - $total_harga;
+        $total_kembali = $request->total_kembali;
         $user_email = 'none';
         $keterangan = $request->keterangan;
 
         //rincian_transaksi
         $nama_produk = $request->nama_produk;
         $jumlah = $request->jumlah;
+        $satuan = DB::table('produk')->where('nama_produk','=',$nama_produk)->pluck('satuan');
         $harga = DB::table('produk')->where('nama_produk','=',$nama_produk)->sum('harga');
         $sub_total = ($jumlah * $harga);
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
+        //cek rincian_transaksi null atau ada value:
+        $cek_isi_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
+
         if(empty($nama_produk)||empty($jumlah))
         {   
-            $validatedData = $request->validate([
-                'total_bayar' => 'required|max:30'
-            ]);
+            //update transaksi terakhir
+            if($cek_isi_rincian->isEmpty()||empty($total_bayar))
+            {
+                $total_bayar=0;
+                $total_kembali=0;
+
+            }
 
             $update_transaksi = DB::table('transaksi')
             ->where('id',$id_transaksi_terakhir)->update([
@@ -69,13 +77,34 @@ class TransaksiController extends Controller
             
         }elseif(!empty($nama_produk)||!empty($jumlah))
         {
+            //insert rincian dengan id_transaksi terakhir
             DB::table('rincian_transaksi')->insert([
                 'id_transaksi'=>$id_transaksi_terakhir,
                 'nama_produk'=>$nama_produk,
                 'jumlah'=>$jumlah,
+                'satuan'=>$satuan[0],
                 'harga'=>$harga,
                 'sub_total'=>$sub_total,
                 "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
+            ]);
+
+            //update transaksi terakhir
+            if($cek_isi_rincian->isEmpty()||empty($total_bayar))
+            {
+                $total_bayar=0;
+                $total_kembali=0;
+
+            }
+
+            $update_transaksi = DB::table('transaksi')
+            ->where('id',$id_transaksi_terakhir)->update([
+                'nama_pelanggan'=>$nama_pelanggan,
+                'total_harga'=>$total_harga,
+                'total_bayar'=>$total_bayar,
+                'total_kembali'=>$total_kembali,
+                'user_email'=>$user_email,
+                'keterangan'=>$keterangan,
+                'updated_at'=>$carbon_now
             ]);
 
             return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
