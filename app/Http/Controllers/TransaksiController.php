@@ -52,6 +52,7 @@ class TransaksiController extends Controller
         //cek rincian_transaksi null atau ada value:
         $cek_isi_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
 
+        //if request empty
         if(empty($nama_produk)||empty($jumlah))
         {   
             //update transaksi terakhir
@@ -75,6 +76,7 @@ class TransaksiController extends Controller
 
             return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
             
+        //if request not empty
         }elseif(!empty($nama_produk)||!empty($jumlah))
         {
             //insert rincian dengan id_transaksi terakhir
@@ -109,9 +111,6 @@ class TransaksiController extends Controller
 
             return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
         }
-
-        
-
         
     }
 
@@ -120,5 +119,31 @@ class TransaksiController extends Controller
         DB::table('rincian_transaksi')->where('id', '=', $id)->delete();
 
         return redirect('/standard_user/menu/transaksi')->with('delete_succeed','Deleted!');
+    }
+
+    public function buat_transaksi_baru(Request $request)
+    {
+        $total_harga = 0;
+        $total_bayar = 0;
+        $total_kembali = 0;
+        $user_email = 'none';
+
+        DB::table('transaksi')->insert([
+            'total_harga'=>$total_harga,
+            'total_bayar'=>$total_bayar,
+            'total_kembali'=>$total_kembali,
+            'user_email'=>$user_email
+        ]);
+
+        return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+    }
+
+    public function cetak_transaksi(Request $request)
+    {
+        $id_transaksi_terakhir = DB::table('transaksi')->where('user_email','=','none')->orderByDesc('id')->first()->id;
+        $data_transaksi = DB::table('transaksi')->where('id', $id_transaksi_terakhir)->first();
+        $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
+        
+        dd($data_transaksi);
     }
 }

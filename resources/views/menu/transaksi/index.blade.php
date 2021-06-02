@@ -119,23 +119,29 @@
         <button type="submit" class="btn btn-primary btn-lg btn-block">Input</button>
         </div>
     </div>
-
-    <div class="form-group row">
-        <div class="col-sm-12">
-        <button type="button" class="btn btn-dark btn-lg btn-block">Cetak</button>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <div class="col-sm-12">
-        <button type="button" class="btn btn-dark btn-lg btn-block">Buat Transaksi Baru</button>
-        </div>
-    </div>
-
 </div>
 
 </form>
 
+<div class="container-sm">
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <form action = "/standard_user/menu/transaksi/cetak_transaksi" method="POST">
+        {{csrf_field()}}
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Cetak</button>
+        </form>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <form action = "/standard_user/menu/transaksi/buat_transaksi_baru" method="POST">
+        {{csrf_field()}}
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Buat Transaksi Baru</button>
+        </form>
+        </div>
+    </div>
+</div>
 
 
 </br>

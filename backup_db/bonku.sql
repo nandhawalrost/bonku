@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2021 at 03:59 PM
+-- Generation Time: Jun 02, 2021 at 04:58 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -60,7 +60,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2021_05_20_112039_create_produk_table', 1),
 (11, '2021_05_25_022709_add_harga_to_produk_table', 2),
 (12, '2014_10_12_100000_create_password_resets_table', 3),
-(14, '2021_05_31_062832_move_jumlah_index_in_rincian_transaksi', 4);
+(14, '2021_05_31_062832_move_jumlah_index_in_rincian_transaksi', 4),
+(15, '2021_06_01_021739_modify_all_decimal_to_integer_transaksi_table', 5),
+(16, '2021_06_01_022056_modify_all_decimal_to_integer_rincian_transaksi_table', 6),
+(18, '2021_06_01_022340_modify_all_decimal_to_integer_produk_table', 7),
+(19, '2021_06_01_031510_modify_keterangan_to_nullable_transaksi_table', 7),
+(20, '2021_06_01_041457_add_satuan_to_rincian_transaksi_table', 8);
 
 -- --------------------------------------------------------
 
@@ -86,7 +91,7 @@ CREATE TABLE `produk` (
   `jumlah` int(11) NOT NULL,
   `jumlah_minimum` int(11) NOT NULL,
   `jumlah_maksimum` int(11) NOT NULL,
-  `harga` decimal(8,2) NOT NULL,
+  `harga` int(11) NOT NULL,
   `satuan` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -98,9 +103,8 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `nama_produk`, `jumlah`, `jumlah_minimum`, `jumlah_maksimum`, `harga`, `satuan`, `user_email`, `created_at`, `updated_at`) VALUES
-(5, 'santan', 99999, 1, 1000000, '12000.00', 'KG', 'none', '2021-05-29 05:45:27', NULL),
-(6, 'kelapa', 20000, 1, 1000000, '6000.00', 'buah', 'none', '2021-05-29 05:47:10', '2021-05-31 04:53:03'),
-(7, 'bitcoin', 999, 1, 1000, '50000.00', 'btc', 'none', '2021-05-31 07:12:28', NULL);
+(9, 'buku tulis', 2, 1, 9999, 2000, 'pcs', 'none', '2021-06-02 08:03:54', NULL),
+(10, 'tempat pensil', 500, 1, 99999, 100000, 'pcs', 'none', '2021-06-02 08:05:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -113,8 +117,9 @@ CREATE TABLE `rincian_transaksi` (
   `id_transaksi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama_produk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jumlah` int(11) NOT NULL,
-  `harga` decimal(8,2) NOT NULL,
-  `sub_total` decimal(8,2) NOT NULL,
+  `satuan` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `harga` int(11) NOT NULL,
+  `sub_total` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -123,11 +128,13 @@ CREATE TABLE `rincian_transaksi` (
 -- Dumping data for table `rincian_transaksi`
 --
 
-INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, `harga`, `sub_total`, `created_at`, `updated_at`) VALUES
-(1, '1', 'bitcoin', 2, '50000.00', '10000.00', '2021-05-21 07:41:39', NULL),
-(2, '1', 'dogecoin', 2, '25000.00', '50000.00', '2021-05-21 07:43:31', NULL),
-(3, '1', 'ethereum', 1, '40000.00', '40000.00', '2021-05-21 07:43:31', NULL),
-(4, '1', 'santan', 2, '12000.00', '24000.00', '2021-05-31 05:52:59', NULL);
+INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, `satuan`, `harga`, `sub_total`, `created_at`, `updated_at`) VALUES
+(30, '1', 'bitcoin', 2, 'btc', 50000, 100000, '2021-06-01 11:56:28', NULL),
+(33, '1', 'dogecoin', 6, 'doge', 40000, 240000, '2021-06-02 05:50:33', NULL),
+(34, '9', 'bitcoin', 4, 'btc', 50000, 200000, '2021-06-02 06:43:39', NULL),
+(35, '9', 'dogecoin', 1, 'doge', 40000, 40000, '2021-06-02 07:37:08', NULL),
+(36, '10', 'buku tulis', 3, 'pcs', 2000, 6000, '2021-06-02 08:05:49', NULL),
+(37, '10', 'tempat pensil', 1, 'pcs', 100000, 100000, '2021-06-02 08:05:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -138,11 +145,11 @@ INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, 
 CREATE TABLE `transaksi` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nama_pelanggan` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `total_harga` decimal(8,2) NOT NULL,
-  `total_bayar` decimal(8,2) NOT NULL,
-  `total_kembali` decimal(8,2) NOT NULL,
+  `total_harga` int(11) NOT NULL,
+  `total_bayar` int(11) NOT NULL,
+  `total_kembali` int(11) NOT NULL,
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -152,7 +159,9 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `total_kembali`, `user_email`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 'elon musk', '124000.00', '200000.00', '0.00', 'none', 'untuk pom-pom', '2021-05-21 07:40:08', '2021-05-31 11:08:05');
+(1, NULL, 340000, 500000, 160000, 'none', 'untuk pom-pom', '2021-05-21 07:40:08', '2021-06-02 06:40:00'),
+(9, 'nandha', 200000, 1000, -199000, 'none', 'nyoba crypto', NULL, '2021-06-02 07:37:08'),
+(10, 'nandha', 106000, 110000, 4000, 'none', NULL, NULL, '2021-06-02 12:59:35');
 
 -- --------------------------------------------------------
 
@@ -232,25 +241,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`
