@@ -141,9 +141,9 @@ class TransaksiController extends Controller
     public function cetak_transaksi(Request $request)
     {
         $id_transaksi_terakhir = DB::table('transaksi')->where('user_email','=','none')->orderByDesc('id')->first()->id;
-        $data_transaksi = DB::table('transaksi')->where('id', $id_transaksi_terakhir)->first();
+        $data_transaksi = DB::table('transaksi')->where('id', '=', $id_transaksi_terakhir)->first();
         $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
         
-        dd($data_transaksi);
+        return view('menu.transaksi.cetak_transaksi', compact('data_transaksi','data_rincian'));
     }
 }

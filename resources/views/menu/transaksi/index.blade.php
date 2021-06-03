@@ -44,6 +44,7 @@
           <th>Jumlah</th>
           <th>Harga</th>
           <th>Sub Total</th>
+          <th></th>
         </thead>
 
         <thead class="thead-light">
@@ -58,6 +59,9 @@
           </th>
           <th>
                 <input name = "jumlah" type="number"  autocomplete="off" class="form-control" id="">
+          </th>
+          <th>
+                
           </th>
           <th>
                 
