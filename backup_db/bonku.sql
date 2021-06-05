@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2021 at 04:35 PM
+-- Generation Time: Jun 05, 2021 at 05:30 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -65,7 +65,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2021_06_01_022056_modify_all_decimal_to_integer_rincian_transaksi_table', 6),
 (18, '2021_06_01_022340_modify_all_decimal_to_integer_produk_table', 7),
 (19, '2021_06_01_031510_modify_keterangan_to_nullable_transaksi_table', 7),
-(20, '2021_06_01_041457_add_satuan_to_rincian_transaksi_table', 8);
+(20, '2021_06_01_041457_add_satuan_to_rincian_transaksi_table', 8),
+(21, '2021_06_04_062357_create_pengeluaran_table', 9),
+(22, '2021_06_05_095529_add_user_email_to_rincian_transaksi_table', 10);
 
 -- --------------------------------------------------------
 
@@ -78,6 +80,30 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pengeluaran`
+--
+
+CREATE TABLE `pengeluaran` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `deskripsi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` int(11) NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pengeluaran`
+--
+
+INSERT INTO `pengeluaran` (`id`, `deskripsi`, `total`, `keterangan`, `user_email`, `created_at`, `updated_at`) VALUES
+(1, 'bensin', 20000, 'bensin motor mio', 'none', '2021-06-04 07:08:10', NULL),
+(2, 'belanja produk', 1000000, 'buku catatan, dll.', 'none', '2021-06-04 07:10:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -103,8 +129,11 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `nama_produk`, `jumlah`, `jumlah_minimum`, `jumlah_maksimum`, `harga`, `satuan`, `user_email`, `created_at`, `updated_at`) VALUES
-(9, 'buku tulis', 2, 1, 9999, 2000, 'pcs', 'none', '2021-06-02 08:03:54', NULL),
-(10, 'tempat pensil', 500, 1, 99999, 100000, 'pcs', 'none', '2021-06-02 08:05:01', NULL);
+(9, 'buku tulis', 2, 1, 9999, 2000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-02 08:03:54', NULL),
+(10, 'tempat pensil', 500, 1, 99999, 100000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-02 08:05:01', NULL),
+(11, 'ibanez rg350', 4, 1, 40, 3400000, 'pcs', 'test@bonqu.online', '2021-06-05 09:16:46', '2021-06-05 09:27:57'),
+(12, 'fender stratocaster classic', 2, 1, 2, 79000000, 'pcs', 'test@bonqu.online', '2021-06-05 09:20:54', NULL),
+(13, 'drawing pen', 20, 1, 999, 10000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-05 13:11:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -120,21 +149,10 @@ CREATE TABLE `rincian_transaksi` (
   `satuan` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
   `harga` int(11) NOT NULL,
   `sub_total` int(11) NOT NULL,
+  `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `rincian_transaksi`
---
-
-INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, `satuan`, `harga`, `sub_total`, `created_at`, `updated_at`) VALUES
-(30, '1', 'bitcoin', 2, 'btc', 50000, 100000, '2021-06-01 11:56:28', NULL),
-(33, '1', 'dogecoin', 6, 'doge', 40000, 240000, '2021-06-02 05:50:33', NULL),
-(34, '9', 'bitcoin', 4, 'btc', 50000, 200000, '2021-06-02 06:43:39', NULL),
-(35, '9', 'dogecoin', 1, 'doge', 40000, 40000, '2021-06-02 07:37:08', NULL),
-(36, '10', 'buku tulis', 3, 'pcs', 2000, 6000, '2021-06-02 08:05:49', NULL),
-(37, '10', 'tempat pensil', 1, 'pcs', 100000, 100000, '2021-06-02 08:05:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -154,15 +172,6 @@ CREATE TABLE `transaksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `transaksi`
---
-
-INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `total_kembali`, `user_email`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, NULL, 340000, 500000, 160000, 'none', 'untuk pom-pom', '2021-05-21 07:40:08', '2021-06-02 06:40:00'),
-(9, 'nandha', 200000, 1000, -199000, 'none', 'nyoba crypto', NULL, '2021-06-02 07:37:08'),
-(10, 'nandha', 106000, 110000, 4000, 'none', NULL, NULL, '2021-06-02 12:59:35');
-
 -- --------------------------------------------------------
 
 --
@@ -179,6 +188,14 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', NULL, '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
+(2, 'test user', 'test@bonqu.online', NULL, '$2y$10$byM9c6EIhp58F7IcRXnr3uTXXV6SQJPEbqv09OhT3loBfOZBftgsG', NULL, '2021-06-05 02:15:33', '2021-06-05 02:15:33');
 
 --
 -- Indexes for dumped tables
@@ -201,6 +218,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `produk`
@@ -241,31 +264,37 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
+--
+-- AUTO_INCREMENT for table `pengeluaran`
+--
+ALTER TABLE `pengeluaran`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

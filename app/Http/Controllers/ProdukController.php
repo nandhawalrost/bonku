@@ -4,18 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
     public function produk()
     {
-        $data_produk = DB::table('produk')->get();
+        $user_email = Auth::user()->email;
+        $data_produk = DB::table('produk')->where('user_email', $user_email)->get();
 
         return view('menu.produk.index', compact('data_produk'));
     }
 
     public function store(Request $request)
     {
+        $user_email = Auth::user()->email;
+
         $validatedData = $request->validate([
             'nama_produk' => 'required|unique:produk|max:30',
             'jumlah' => 'max:11',
@@ -62,7 +66,7 @@ class ProdukController extends Controller
             'jumlah_maksimum'=>$jumlah_maksimum,
             'harga'=>$harga,
             'satuan'=>$satuan,
-            'user_email'=>'none',
+            'user_email'=>$user_email,
             "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
         ]);
 
@@ -71,12 +75,15 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        $data_produk = DB::table('produk')->where('id', $id)->first(); //or find()
+        $user_email = Auth::user()->email;
+        $data_produk = DB::table('produk')->where('user_email','=',$user_email)->where('id', $id)->first(); //or find()
         return view('menu.produk.edit',['produk' => $data_produk]);
     }
 
     public function update(Request $request, $id) //update (reduce balance)
     {
+        $user_email = Auth::user()->email;
+
         $validatedData = $request->validate([
             'nama_produk' => 'required|max:30',
             'jumlah' => 'max:11',
@@ -104,7 +111,7 @@ class ProdukController extends Controller
             'jumlah_maksimum'=>$jumlah_maksimum,
             'harga'=>$harga,
             'satuan'=>$satuan,
-            'user_email'=>'none',
+            'user_email'=>$user_email,
             "updated_at" =>  $carbon_now
         ]);
 

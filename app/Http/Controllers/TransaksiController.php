@@ -4,23 +4,36 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
+
     public function transaksi()
     {
-        $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
-        $data_transaksi = DB::table('transaksi')->where('id','=',$id_transaksi_terakhir)->get();
-        $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
-        $nama_produk = DB::table('produk')->get();
-        $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get()->sum('sub_total');
+        $user_email = Auth::user()->email;
+
+        $cek_isi_transaksi = DB::table('transaksi')->where('user_email','=',$user_email)->get();
+        if($cek_isi_transaksi->isEmpty())
+        {
+            $id_transaksi_terakhir = null;
+        }elseif(!$cek_isi_transaksi->isEmpty())
+        {
+            $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
+        }
+
+        //DB::table('transaksi')->orderByDesc('id')->first()->id;
+        $data_transaksi = DB::table('transaksi')->where('id','=',$id_transaksi_terakhir)->where('user_email','=',$user_email)->get();
+        $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->where('user_email','=',$user_email)->get();
+        $nama_produk = DB::table('produk')->where('user_email','=',$user_email)->get();
+        $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->where('user_email','=',$user_email)->get()->sum('sub_total');
 
         if($sum_sub_total_terakhir == 0)
         {
             $sum_sub_total_terakhir = null;
 
             return view('menu.transaksi.index', compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
-        }else
+        }elseif(!$sum_sub_total_terakhir == 0)
         {
             return view('menu.transaksi.index', compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
         }
@@ -29,7 +42,9 @@ class TransaksiController extends Controller
 
     public function store_transaksi(Request $request)
     {
-        $id_transaksi_terakhir = DB::table('transaksi')->orderByDesc('id')->first()->id;
+        $user_email = Auth::user()->email;
+
+        $id_transaksi_terakhir = null; 
         $sum_sub_total_terakhir = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get()->sum('sub_total');
 
         //transaksi
@@ -37,7 +52,6 @@ class TransaksiController extends Controller
         $total_harga = $sum_sub_total_terakhir;
         $total_bayar = $request->total_bayar;
         $total_kembali = $request->total_kembali;
-        $user_email = 'none';
         $keterangan = $request->keterangan;
 
         //rincian_transaksi
@@ -49,7 +63,7 @@ class TransaksiController extends Controller
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
-        //cek rincian_transaksi null atau ada value:
+        //cek rincian_transaksi empty atau ada value:
         $cek_isi_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
 
         //if request empty
@@ -63,6 +77,20 @@ class TransaksiController extends Controller
 
             }
 
+            //cek transaksi empty atau ada value
+            $cek_isi_transaksi = DB::table('transaksi')->where('user_email','=',$user_email)->get();
+            if($cek_isi_transaksi->isEmpty())
+            {
+                //buat transaksi awal
+                DB::table('transaksi')->insert([
+                    'total_harga'=>0,
+                    'total_bayar'=>0,
+                    'total_kembali'=>0,
+                    'user_email'=>$user_email,
+                    "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
+                ]);
+            }
+            
             $update_transaksi = DB::table('transaksi')
             ->where('id',$id_transaksi_terakhir)->update([
                 'nama_pelanggan'=>$nama_pelanggan,
@@ -87,6 +115,7 @@ class TransaksiController extends Controller
                 'satuan'=>$satuan[0],
                 'harga'=>$harga,
                 'sub_total'=>$sub_total,
+                'user_email'=>$user_email,
                 "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
             ]);
 
@@ -123,10 +152,11 @@ class TransaksiController extends Controller
 
     public function buat_transaksi_baru(Request $request)
     {
+        $user_email = Auth::user()->email;
+
         $total_harga = 0;
         $total_bayar = 0;
         $total_kembali = 0;
-        $user_email = 'none';
 
         DB::table('transaksi')->insert([
             'total_harga'=>$total_harga,
@@ -140,7 +170,9 @@ class TransaksiController extends Controller
 
     public function cetak_transaksi(Request $request)
     {
-        $id_transaksi_terakhir = DB::table('transaksi')->where('user_email','=','none')->orderByDesc('id')->first()->id;
+        $user_email = Auth::user()->email;
+
+        $id_transaksi_terakhir = DB::table('transaksi')->where('user_email','=',$user_email)->orderByDesc('id')->first()->id;
         $data_transaksi = DB::table('transaksi')->where('id', '=', $id_transaksi_terakhir)->first();
         $data_rincian = DB::table('rincian_transaksi')->where('id_transaksi','=',$id_transaksi_terakhir)->get();
         
