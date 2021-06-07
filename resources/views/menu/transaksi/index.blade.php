@@ -1,6 +1,6 @@
 @include('header.index')
 
-
+@if($data_transaksi->isEmpty())
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -11,6 +11,20 @@
         </ul>
     </div>
 @endif
+
+<div class="container-sm">
+    <div class="form-group row">
+        <div class="col-sm-12">
+        <center><label>Hai {{ $user_name }}, anda belum menyimpan transaksi apapun. Silahkan tekan tombol "Buat Transaksi Baru" untuk memulai.</label></center>
+        <form action = "/standard_user/menu/transaksi/buat_transaksi_baru" method="POST">
+        {{csrf_field()}}
+        <button type="submit" class="btn btn-dark btn-lg btn-block">Buat Transaksi Baru</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+@else
 
 <form class="form" action="/standard_user/menu/transaksi/store_transaksi" method="POST">
 
@@ -33,6 +47,7 @@
   </div>
 </div>
 @endforeach
+
 
 <div class="container-sm">
 <div class="box">
@@ -84,6 +99,7 @@
           @endforeach
         </tbody>
       </table>
+      
     </div>
   </div>
 </div>
@@ -91,7 +107,7 @@
 
 <div class="container-sm">
 
-@if(empty($sum_sub_total_terakhir))
+@if($data_transaksi->isEmpty())
 <!-- tidak ada sub total -->
 @else
     <div class="form-group row">
@@ -116,14 +132,14 @@
     </div>
     @endforeach
 
-@endif
-
     <div class="form-group row">
         <div class="col-sm-12">
         <button type="submit" class="btn btn-primary btn-lg btn-block">Input</button>
         </div>
     </div>
 </div>
+
+@endif
 
 </form>
 
@@ -136,7 +152,9 @@
         </form>
         </div>
     </div>
+</div>
 
+<div class="container-sm">
     <div class="form-group row">
         <div class="col-sm-12">
         <form action = "/standard_user/menu/transaksi/buat_transaksi_baru" method="POST">
@@ -146,7 +164,6 @@
         </div>
     </div>
 </div>
-
 
 </br>
 <div class="container-sm mb-3">
@@ -165,6 +182,9 @@ function hitungKembali() {
 	}
 </script>
 
+@endif
+
+<!-- javascript untuk bootstrap harus aktif -->
 <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
@@ -175,6 +195,7 @@ function hitungKembali() {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
+    
 </body>
 
 

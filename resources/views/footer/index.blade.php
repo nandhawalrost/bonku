@@ -1,7 +1,7 @@
 <div></div>
 <section class="">
   <!-- Footer -->
-  <footer class="footer bg-dark text-white">
+  <footer class="footer bg-dark text-white fixed">
     <!-- Grid container -->
     <div class="container p-4">
       <!--Grid row-->

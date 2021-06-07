@@ -11,7 +11,7 @@ class TransaksiController extends Controller
 
     public function transaksi()
     {
-        //filter data by user
+        //user email
         $user_email = Auth::user()->email;
 
         $cek_isi_transaksi = DB::table('transaksi')
@@ -56,18 +56,17 @@ class TransaksiController extends Controller
             $sum_sub_total_terakhir = null;
             
             return view('menu.transaksi.index', 
-            compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
+            compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir','user_name'));
         }elseif(!$sum_sub_total_terakhir == 0)
         {
             return view('menu.transaksi.index', 
-            compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir'));
+            compact('data_transaksi','data_rincian','nama_produk','sum_sub_total_terakhir','user_name'));
         }
 
     }
 
     public function store_transaksi(Request $request)
     {
-        //filter data by user
         $user_email = Auth::user()->email;
 
         $cek_isi_transaksi = DB::table('transaksi')
@@ -206,10 +205,24 @@ class TransaksiController extends Controller
 
     public function destroy_rincian($id)
     {
+        $user_email = Auth::user()->email;
+
         DB::table('rincian_transaksi')
         ->where('id', '=', $id)
         ->where('user_email','=',$user_email)
         ->delete();
+
+        $id_transaksi_terakhir = DB::table('transaksi')
+        ->where('user_email','=',$user_email)
+        ->orderByDesc('id')
+        ->first()
+        ->id;
+        
+        $sum_sub_total_terakhir = DB::table('rincian_transaksi')
+        ->where('id_transaksi','=',$id_transaksi_terakhir)
+        ->where('user_email','=',$user_email)
+        ->get()
+        ->sum('sub_total');
 
         return redirect('/standard_user/menu/transaksi')->with('delete_succeed','Deleted!');
     }
@@ -229,7 +242,8 @@ class TransaksiController extends Controller
             'user_email'=>$user_email
         ]);
 
-        return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+        return redirect('/standard_user/menu/transaksi')
+        ->with('succeed','Sent!');
     }
 
     public function cetak_transaksi(Request $request)
@@ -250,6 +264,7 @@ class TransaksiController extends Controller
         ->where('id_transaksi','=',$id_transaksi_terakhir)
         ->get();
         
-        return view('menu.transaksi.cetak_transaksi', compact('data_transaksi','data_rincian'));
+        return view('menu.transaksi.cetak_transaksi', 
+        compact('data_transaksi','data_rincian'));
     }
 }

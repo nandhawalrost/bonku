@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2021 at 04:13 PM
+-- Generation Time: Jun 07, 2021 at 06:14 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -154,6 +154,18 @@ CREATE TABLE `rincian_transaksi` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `rincian_transaksi`
+--
+
+INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, `satuan`, `harga`, `sub_total`, `user_email`, `created_at`, `updated_at`) VALUES
+(58, '29', 'buku tulis', 1, 'pcs', 2000, 2000, 'nandha-owner@bonqu.online', '2021-06-07 07:47:05', NULL),
+(59, '34', 'ibanez rg350', 2, 'pcs', 3400000, 6800000, 'test@bonqu.online', '2021-06-07 09:57:26', NULL),
+(60, '34', 'fender stratocaster classic', 1, 'pcs', 79000000, 79000000, 'test@bonqu.online', '2021-06-07 09:57:47', NULL),
+(61, '35', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 09:59:20', NULL),
+(63, '36', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-07 13:23:16', NULL),
+(64, '36', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 13:33:48', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -171,6 +183,15 @@ CREATE TABLE `transaksi` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `transaksi`
+--
+
+INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `total_kembali`, `user_email`, `keterangan`, `created_at`, `updated_at`) VALUES
+(34, NULL, 85800000, 100000000, 14200000, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:58:38'),
+(35, 'badu', 3400000, 3400000, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:59:27'),
+(36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48');
 
 -- --------------------------------------------------------
 
@@ -282,13 +303,13 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `users`
