@@ -11,8 +11,9 @@ class TransaksiController extends Controller
 
     public function transaksi()
     {
-        //user email
+        //users
         $user_email = Auth::user()->email;
+        $user_name = Auth::user()->name;
 
         $cek_isi_transaksi = DB::table('transaksi')
         ->where('user_email','=',$user_email)
