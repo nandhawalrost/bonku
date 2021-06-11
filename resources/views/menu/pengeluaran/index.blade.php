@@ -12,7 +12,7 @@
     </div>
 @endif
 
-<form class="form" action="" method="POST">
+<form class="form" action="/standard_user/menu/pengeluaran/store" method="POST">
 
   {{csrf_field()}}    
 
@@ -103,7 +103,7 @@
             <td>{{$pengeluaran->created_at}}</td>
             <td>{{$pengeluaran->updated_at}}</td>
             <td>
-              <a href="">Ubah</a>
+              <a href="/standard_user/menu/pengeluaran/{{$pengeluaran->id}}/edit">Ubah</a>
             </td>
             <td>
               <a href="">Hapus</a>

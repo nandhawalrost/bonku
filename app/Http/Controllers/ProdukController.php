@@ -11,6 +11,7 @@ class ProdukController extends Controller
     public function produk()
     {
         $user_email = Auth::user()->email;
+        
         $data_produk = DB::table('produk')
         ->where('user_email', $user_email)
         ->paginate(10);

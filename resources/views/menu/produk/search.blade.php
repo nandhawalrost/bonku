@@ -31,10 +31,10 @@
             <td>{{$produk->created_at}}</td>
             <td>{{$produk->updated_at}}</td>
             <td>
-              <a href="produk/{{$produk->id}}/edit">Ubah</a>
+              <a href="/standard_user/menu/produk/{{$produk->id}}/edit">Ubah</a>
             </td>
             <td>
-              <a href="produk/{{$produk->id}}/delete_confirmation">Hapus</a>
+              <a href="/standard_user/menu/produk/{{$produk->id}}/delete_confirmation">Hapus</a>
             </td>
           </tr>
           @endforeach

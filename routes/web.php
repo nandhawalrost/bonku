@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth']], function() {
 
     Route::prefix('standard_user/menu/pengeluaran')->group(function () {
         Route::get('', 'PengeluaranController@pengeluaran'); 
+        Route::post('/store','PengeluaranController@store');
+        Route::get('/{id}/edit','PengeluaranController@edit');
+        Route::post('/{id}/update','PengeluaranController@update');
     });
 
 });

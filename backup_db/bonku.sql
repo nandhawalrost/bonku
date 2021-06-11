@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2021 at 09:49 AM
+-- Generation Time: Jun 11, 2021 at 03:15 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -102,8 +102,11 @@ CREATE TABLE `pengeluaran` (
 --
 
 INSERT INTO `pengeluaran` (`id`, `deskripsi`, `total`, `keterangan`, `user_email`, `created_at`, `updated_at`) VALUES
-(1, 'bensin', 20000, 'bensin motor mio', 'none', '2021-06-04 07:08:10', NULL),
-(2, 'belanja produk', 1000000, 'buku catatan, dll.', 'none', '2021-06-04 07:10:35', NULL);
+(1, 'bensin', 20000, 'bensin motor mio', 'nandha-owner@bonqu.online', '2021-06-04 07:08:10', NULL),
+(2, 'belanja produk', 1000000, 'buku catatan, dll.', 'nandha-owner@bonqu.online', '2021-06-04 07:10:35', NULL),
+(3, 'beli kipas', 200000, 'biar ga panas', 'nandha-owner@bonqu.online', '2021-06-11 11:37:40', '2021-06-11 12:59:06'),
+(4, 'beli kertas  A1', 100000, NULL, 'nandha-owner@bonqu.online', '2021-06-11 11:39:18', NULL),
+(5, 'beli sapu', 20000, NULL, 'test@bonqu.online', '2021-06-11 11:42:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -302,7 +305,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `produk`
