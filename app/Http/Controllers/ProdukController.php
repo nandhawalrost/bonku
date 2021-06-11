@@ -13,7 +13,7 @@ class ProdukController extends Controller
         $user_email = Auth::user()->email;
         $data_produk = DB::table('produk')
         ->where('user_email', $user_email)
-        ->get();
+        ->paginate(10);
 
         return view('menu.produk.index', compact('data_produk'));
     }
@@ -133,6 +133,22 @@ class ProdukController extends Controller
         DB::table('produk')->where('id', '=', $id)->delete();
 
         return redirect('/standard_user/menu/produk')->with('delete_succeed','Deleted!');
+    }
+
+    public function search_produk(Request $request)
+    {
+        $user_email = Auth::user()->email;
+
+        $nama_produk = $request->get('nama_produk');
+        
+        $search_produk = DB::table('produk')
+        ->where('nama_produk', 'like', '%' .$nama_produk. '%')
+        ->where('user_email', $user_email)
+        ->paginate(10);
+
+        $search_produk->appends($request->all());
+
+        return view('menu.produk.search', compact('search_produk'));
     }
 }
 

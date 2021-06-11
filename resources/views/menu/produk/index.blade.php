@@ -83,7 +83,7 @@
               </div>
 
               <!-- search form -->
-              <form class="form" action="" method="GET">
+              <form class="form" action="/standard_user/menu/produk/search_produk" method="GET">
               <div class="modal-body">
                     <div class="">
                       <input name = "nama_produk" type="text" class="form-control" id="inputEmail3" placeholder="Nama Produk">
@@ -136,6 +136,7 @@
           @endforeach
         </tbody>
       </table>
+      {{ $data_produk->links() }}
     </div>
   </div>
 </div>
@@ -143,7 +144,7 @@
 
 </br>
 <div class="container-sm mb-3">
-<a href="/standard_user/menu" class="btn btn-secondary btn-lg btn-block">Kembali</a>
+<a href="/home" class="btn btn-secondary btn-lg btn-block">Kembali</a>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->

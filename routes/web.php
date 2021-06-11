@@ -21,24 +21,30 @@ Route::get('/', function () {
 //redirect to login page if not logged in
 Route::group(['middleware' => ['auth']], function() {
 
-    Route::prefix('standard_user')->group(function () { // url example: "/standard_user/produk"
-        
-        Route::get('menu', 'StandardUserController@menu');
+    Route::prefix('standard_user/menu')->group(function () { 
+        return view('home');
+    });
 
-        Route::get('/menu/produk', 'ProdukController@produk'); 
-        Route::post('/menu/produk/store','ProdukController@store');
-        Route::get('/menu/produk/{id}/edit','ProdukController@edit');
-        Route::post('/menu/produk/{id}/update','ProdukController@update');
-        Route::get('/menu/produk/{id}/delete_confirmation','ProdukController@delete_confirmation');
-        Route::get('/menu/produk/{id}/destroy','ProdukController@destroy');
-            
-        Route::get('/menu/transaksi', 'TransaksiController@transaksi');
-        Route::post('/menu/transaksi/store_transaksi','TransaksiController@store_transaksi'); 
-        Route::get('/menu/transaksi/{id}/destroy_rincian','TransaksiController@destroy_rincian');
-        Route::post('/menu/transaksi/buat_transaksi_baru','TransaksiController@buat_transaksi_baru');
-        Route::post('/menu/transaksi/cetak_transaksi','TransaksiController@cetak_transaksi');
+    Route::prefix('standard_user/menu/produk')->group(function () { // url example: "/standard_user/produk"
+        Route::get('', 'ProdukController@produk'); 
+        Route::post('/store','ProdukController@store');
+        Route::get('/{id}/edit','ProdukController@edit');
+        Route::post('/{id}/update','ProdukController@update');
+        Route::get('/{id}/delete_confirmation','ProdukController@delete_confirmation');
+        Route::get('/{id}/destroy','ProdukController@destroy');
+        Route::get('search_produk','ProdukController@search_produk');
+    });
 
-        Route::get('/menu/pengeluaran', 'PengeluaranController@pengeluaran'); 
+    Route::prefix('standard_user/menu/transaksi')->group(function () { 
+        Route::get('', 'TransaksiController@transaksi');
+        Route::post('/store_transaksi','TransaksiController@store_transaksi'); 
+        Route::get('/{id}/destroy_rincian','TransaksiController@destroy_rincian');
+        Route::post('/buat_transaksi_baru','TransaksiController@buat_transaksi_baru');
+        Route::post('/cetak_transaksi','TransaksiController@cetak_transaksi');
+    });
+
+    Route::prefix('standard_user/menu/pengeluaran')->group(function () {
+        Route::get('', 'PengeluaranController@pengeluaran'); 
     });
 
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2021 at 06:14 PM
+-- Generation Time: Jun 11, 2021 at 09:49 AM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -133,7 +133,16 @@ INSERT INTO `produk` (`id`, `nama_produk`, `jumlah`, `jumlah_minimum`, `jumlah_m
 (10, 'tempat pensil', 500, 1, 99999, 100000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-02 08:05:01', NULL),
 (11, 'ibanez rg350', 4, 1, 40, 3400000, 'pcs', 'test@bonqu.online', '2021-06-05 09:16:46', '2021-06-05 09:27:57'),
 (12, 'fender stratocaster classic', 2, 1, 2, 79000000, 'pcs', 'test@bonqu.online', '2021-06-05 09:20:54', NULL),
-(13, 'drawing pen', 20, 1, 999, 10000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-05 13:11:39', NULL);
+(13, 'drawing pen', 20, 1, 999, 10000, 'pcs', 'nandha-owner@bonqu.online', '2021-06-05 13:11:39', NULL),
+(14, 'kabel jack daddario', 30, 1, 9999, 120000, 'pcs', 'test@bonqu.online', '2021-06-08 08:59:05', NULL),
+(15, 'solar guitar', 2, 1, 99999, 8000000, 'pcs', 'test@bonqu.online', '2021-06-08 09:21:43', NULL),
+(16, 'ibanez gio', 50, 1, 9999, 3000000, 'pcs', 'test@bonqu.online', '2021-06-08 09:23:00', NULL),
+(17, 'squier affinity', 23, 1, 99999, 3400000, 'pcs', 'test@bonqu.online', '2021-06-08 09:24:12', NULL),
+(18, 'digitech death metal', 5, 1, 9999, 700000, 'pcs', 'test@bonqu.online', '2021-06-08 09:24:46', NULL),
+(19, 'pick dunlop', 400, 1, 9999, 14000, 'pcs', 'test@bonqu.online', '2021-06-08 09:25:37', NULL),
+(20, 'seymour duncan invader neck', 4, 1, 99999, 1100000, 'pcs', 'test@bonqu.online', '2021-06-08 09:26:49', NULL),
+(21, 'seymour duncan inv (pasang)', 5, 1, 999, 1800000, 'pasang', 'test@bonqu.online', '2021-06-08 09:27:33', NULL),
+(22, 'pick fender (lusinan)', 6, 1, 999999, 34000, 'lusin', 'test@bonqu.online', '2021-06-08 09:28:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -191,7 +200,9 @@ CREATE TABLE `transaksi` (
 INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `total_kembali`, `user_email`, `keterangan`, `created_at`, `updated_at`) VALUES
 (34, NULL, 85800000, 100000000, 14200000, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:58:38'),
 (35, 'badu', 3400000, 3400000, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:59:27'),
-(36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48');
+(36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48'),
+(37, NULL, 0, 0, 0, 'nandha-owner@bonqu.online', NULL, NULL, NULL),
+(38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +226,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', NULL, '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
+(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', 'e9sc90hzyOI9VSOBkpY07IpWX89ZAtdxZKGsknynzTbl4DzO1aISxAdqIV1H', '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
 (2, 'test user', 'test@bonqu.online', NULL, '$2y$10$byM9c6EIhp58F7IcRXnr3uTXXV6SQJPEbqv09OhT3loBfOZBftgsG', NULL, '2021-06-05 02:15:33', '2021-06-05 02:15:33');
 
 --
@@ -297,7 +308,7 @@ ALTER TABLE `pengeluaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `rincian_transaksi`
@@ -309,7 +320,7 @@ ALTER TABLE `rincian_transaksi`
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `users`
