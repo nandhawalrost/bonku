@@ -48,6 +48,18 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/store','PengeluaranController@store');
         Route::get('/{id}/edit','PengeluaranController@edit');
         Route::post('/{id}/update','PengeluaranController@update');
+        Route::get('/{id}/delete_confirmation','PengeluaranController@delete_confirmation');
+        Route::get('/{id}/destroy','PengeluaranController@destroy');
+    });
+
+    Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_harian')->group(function () {
+        Route::get('','PengeluaranHarianController@pengeluaran_harian');
+        Route::get('/filter','PengeluaranHarianController@filter');
+    });
+
+    Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_bulanan')->group(function () {
+        Route::get('','PengeluaranBulananController@pengeluaran_bulanan');
+        Route::get('/filter','PengeluaranBulananController@filter');
     });
 
 });

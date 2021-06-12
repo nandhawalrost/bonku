@@ -106,7 +106,7 @@
               <a href="/standard_user/menu/pengeluaran/{{$pengeluaran->id}}/edit">Ubah</a>
             </td>
             <td>
-              <a href="">Hapus</a>
+              <a href="/standard_user/menu/pengeluaran/{{$pengeluaran->id}}/delete_confirmation">Hapus</a>
             </td>
           </tr>
           @endforeach

@@ -52,7 +52,10 @@ class PengeluaranController extends Controller
     public function edit($id)
     {
         $user_email = Auth::user()->email;
-        $data_pengeluaran = DB::table('pengeluaran')->where('user_email','=',$user_email)->where('id', $id)->first(); //or find()
+        $data_pengeluaran = DB::table('pengeluaran')
+        ->where('user_email','=',$user_email)
+        ->where('id', $id)->first(); //or find()
+        
         return view('menu.pengeluaran.edit',['pengeluaran' => $data_pengeluaran]);
     }
 
@@ -83,4 +86,29 @@ class PengeluaranController extends Controller
 
         return redirect('/standard_user/menu/pengeluaran')->with('succeed','Sent!');
     }
+
+    public function delete_confirmation($id)
+    {
+        $user_email = Auth::user()->email;
+
+        $data_pengeluaran = DB::table('pengeluaran')
+        ->where('user_email','=',$user_email)
+        ->where('id', $id)
+        ->first();
+        
+        return view('menu.pengeluaran.delete_confirmation',['pengeluaran' => $data_pengeluaran]);   
+    }
+
+    public function destroy($id)
+    {
+        $user_email = Auth::user()->email;
+
+        DB::table('pengeluaran')
+        ->where('user_email','=',$user_email)
+        ->where('id', '=', $id)
+        ->delete();
+
+        return redirect('/standard_user/menu/pengeluaran')->with('delete_succeed','Deleted!');
+    }
+
 }

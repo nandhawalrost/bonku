@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2021 at 03:15 PM
+-- Generation Time: Jun 12, 2021 at 04:26 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -102,11 +102,10 @@ CREATE TABLE `pengeluaran` (
 --
 
 INSERT INTO `pengeluaran` (`id`, `deskripsi`, `total`, `keterangan`, `user_email`, `created_at`, `updated_at`) VALUES
-(1, 'bensin', 20000, 'bensin motor mio', 'nandha-owner@bonqu.online', '2021-06-04 07:08:10', NULL),
 (2, 'belanja produk', 1000000, 'buku catatan, dll.', 'nandha-owner@bonqu.online', '2021-06-04 07:10:35', NULL),
 (3, 'beli kipas', 200000, 'biar ga panas', 'nandha-owner@bonqu.online', '2021-06-11 11:37:40', '2021-06-11 12:59:06'),
-(4, 'beli kertas  A1', 100000, NULL, 'nandha-owner@bonqu.online', '2021-06-11 11:39:18', NULL),
-(5, 'beli sapu', 20000, NULL, 'test@bonqu.online', '2021-06-11 11:42:50', NULL);
+(5, 'beli sapu', 20000, NULL, 'test@bonqu.online', '2021-06-11 11:42:50', NULL),
+(6, 'beli karpet', 20000, NULL, 'nandha-owner@bonqu.online', '2021-06-12 11:59:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -176,7 +175,8 @@ INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, 
 (60, '34', 'fender stratocaster classic', 1, 'pcs', 79000000, 79000000, 'test@bonqu.online', '2021-06-07 09:57:47', NULL),
 (61, '35', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 09:59:20', NULL),
 (63, '36', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-07 13:23:16', NULL),
-(64, '36', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 13:33:48', NULL);
+(64, '36', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 13:33:48', NULL),
+(65, '38', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-12 08:06:06', NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +205,7 @@ INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `
 (35, 'badu', 3400000, 3400000, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:59:27'),
 (36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48'),
 (37, NULL, 0, 0, 0, 'nandha-owner@bonqu.online', NULL, NULL, NULL),
-(38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, NULL);
+(38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-12 08:06:06');
 
 -- --------------------------------------------------------
 
@@ -305,7 +305,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -317,7 +317,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
