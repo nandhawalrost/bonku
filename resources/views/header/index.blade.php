@@ -37,7 +37,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Pendapatan</a></li>
-            <li><a class="dropdown-item" href="#">Pengeluaran</a></li>
+            <li><a class="dropdown-item" href="/standard_user/menu/laporan/pengeluaran/pengeluaran_bulanan">Pengeluaran</a></li>
             <li><a class="dropdown-item" href="#">Laba</a></li>
           </ul>
         </li>
@@ -47,10 +47,9 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Akun: {{ Auth::user()->name }}</a></li>
-            <li><a class="dropdown-item" href="#">Operator</a></li>
             <li><a class="dropdown-item" href="#">Faktur</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Keluar</a></li>
+            <li><a class="dropdown-item" href="{{ route('logout') }}">Keluar</a></li>
           </ul>
         </li>
       </ul>

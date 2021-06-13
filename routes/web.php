@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 //redirect to login page if not logged in
 Route::group(['middleware' => ['auth']], function() {
