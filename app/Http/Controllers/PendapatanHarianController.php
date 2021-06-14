@@ -24,28 +24,28 @@ class PendapatanHarianController extends Controller
         $data_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', Carbon::today()) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', Carbon::today()) 
         ->sum('total_harga');
 
         //hitung jumlah row
         $data_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', Carbon::today()) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', Carbon::today()) 
         ->count();
 
         //total pendapatan terendah hari ini
         $data_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', Carbon::today()) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', Carbon::today()) 
         ->min('total_harga');
 
         //total pendapatan tertinggi hari ini
         $data_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', Carbon::today()) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', Carbon::today()) 
         ->max('total_harga');
 
         dd($data_pendapatan_hari_ini);
@@ -64,35 +64,35 @@ class PendapatanHarianController extends Controller
         $data_pendapatan_tanggal_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', date($tanggal)) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', date($tanggal)) 
         ->paginate(10);
 
         //sum total harga table transaksi
         $data_pendapatan_tanggal_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', date($tanggal)) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', date($tanggal)) 
         ->sum('total_harga');
 
         //hitung jumlah row
         $data_pendapatan_tanggal_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', date($tanggal)) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', date($tanggal)) 
         ->count();
 
         //total pendapatan terendah tanggal ini
         $data_pendapatan_tanggal_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', date($tanggal)) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', date($tanggal)) 
         ->min('total_harga');
 
         //total pendapatan tertinggi tanggal ini
         $data_pendapatan_tanggal_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
-        ->whereDate('updated_at', '=', date($tanggal)) //karena pendapatan berdasarkan kapan terakhir diupdate, bukan dibuat
+        ->whereDate('updated_at', '=', date($tanggal)) 
         ->max('total_harga');
 
         dd($data_pendapatan_tanggal_ini);
