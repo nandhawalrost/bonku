@@ -51,16 +51,26 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/{id}/update','PengeluaranController@update');
         Route::get('/{id}/delete_confirmation','PengeluaranController@delete_confirmation');
         Route::get('/{id}/destroy','PengeluaranController@destroy');
+        Route::get('search_pengeluaran','PengeluaranController@search_pengeluaran');
     });
 
+    //LAPORAN
+
+    //PENGELUARAN
     Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_harian')->group(function () {
         Route::get('','PengeluaranHarianController@pengeluaran_harian');
-        Route::get('/filter','PengeluaranHarianController@filter');
+        Route::get('/search_tanggal','PengeluaranHarianController@search_tanggal');
     });
 
     Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_bulanan')->group(function () {
         Route::get('','PengeluaranBulananController@pengeluaran_bulanan');
         Route::get('/filter','PengeluaranBulananController@filter');
+    });
+
+    //PENDAPATAN
+    Route::prefix('standard_user/menu/laporan/pendapatan/pendapatan_harian')->group(function () {
+        Route::get('','PendapatanHarianController@pendapatan_harian');
+        Route::get('/search_tanggal','PendapatanHarianController@search_tanggal');
     });
 
 });

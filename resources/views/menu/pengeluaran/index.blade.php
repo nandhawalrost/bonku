@@ -65,7 +65,7 @@
               </div>
 
               <!-- search form -->
-              <form class="form" action="" method="GET">
+              <form class="form" action="/standard_user/menu/pengeluaran/search_pengeluaran" method="GET">
               <div class="modal-body">
                     <div class="">
                       <input name = "deskripsi" type="text" class="form-control" id="inputEmail3" placeholder="Deskripsi">

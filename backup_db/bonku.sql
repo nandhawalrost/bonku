@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2021 at 04:26 PM
+-- Generation Time: Jun 14, 2021 at 05:17 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -105,7 +105,11 @@ INSERT INTO `pengeluaran` (`id`, `deskripsi`, `total`, `keterangan`, `user_email
 (2, 'belanja produk', 1000000, 'buku catatan, dll.', 'nandha-owner@bonqu.online', '2021-06-04 07:10:35', NULL),
 (3, 'beli kipas', 200000, 'biar ga panas', 'nandha-owner@bonqu.online', '2021-06-11 11:37:40', '2021-06-11 12:59:06'),
 (5, 'beli sapu', 20000, NULL, 'test@bonqu.online', '2021-06-11 11:42:50', NULL),
-(6, 'beli karpet', 20000, NULL, 'nandha-owner@bonqu.online', '2021-06-12 11:59:31', NULL);
+(6, 'beli karpet', 20000, NULL, 'nandha-owner@bonqu.online', '2021-05-12 11:59:31', NULL),
+(7, 'beli bubur', 10000, NULL, 'nandha-owner@bonqu.online', '2021-06-13 09:19:57', NULL),
+(8, 'belanja bulanan', 200000, NULL, 'nandha-owner@bonqu.online', '2021-06-13 09:20:06', NULL),
+(9, 'sarapan', 10000, NULL, 'nandha-owner@bonqu.online', '2021-06-14 02:30:33', NULL),
+(10, 'ngeteh', 3000, NULL, 'nandha-owner@bonqu.online', '2021-06-14 02:30:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -176,7 +180,9 @@ INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, 
 (61, '35', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 09:59:20', NULL),
 (63, '36', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-07 13:23:16', NULL),
 (64, '36', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 13:33:48', NULL),
-(65, '38', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-12 08:06:06', NULL);
+(65, '38', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-12 08:06:06', NULL),
+(66, '37', 'tempat pensil', 4, 'pcs', 100000, 400000, 'nandha-owner@bonqu.online', '2021-06-14 12:34:20', NULL),
+(67, '37', 'buku tulis', 1, 'pcs', 2000, 2000, 'nandha-owner@bonqu.online', '2021-06-14 12:34:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -204,7 +210,7 @@ INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `
 (34, NULL, 85800000, 100000000, 14200000, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:58:38'),
 (35, 'badu', 3400000, 3400000, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:59:27'),
 (36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48'),
-(37, NULL, 0, 0, 0, 'nandha-owner@bonqu.online', NULL, NULL, NULL),
+(37, 'walrost', 402000, 500000, 98000, 'nandha-owner@bonqu.online', 'orang arya graha', NULL, '2021-06-14 12:38:29'),
 (38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-12 08:06:06');
 
 -- --------------------------------------------------------
@@ -229,7 +235,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', 'e9sc90hzyOI9VSOBkpY07IpWX89ZAtdxZKGsknynzTbl4DzO1aISxAdqIV1H', '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
+(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', 'zqIvsV2ZjEMx58MZIFeaqMEl83h52rqubmFfzO31gQxcQ4buOVUrLQvP1uw7', '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
 (2, 'test user', 'test@bonqu.online', NULL, '$2y$10$byM9c6EIhp58F7IcRXnr3uTXXV6SQJPEbqv09OhT3loBfOZBftgsG', NULL, '2021-06-05 02:15:33', '2021-06-05 02:15:33');
 
 --
@@ -305,7 +311,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pengeluaran`
 --
 ALTER TABLE `pengeluaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -317,7 +323,7 @@ ALTER TABLE `produk`
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT for table `transaksi`

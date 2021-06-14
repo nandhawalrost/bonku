@@ -37,7 +37,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="#">Pendapatan</a></li>
-            <li><a class="dropdown-item" href="/standard_user/menu/laporan/pengeluaran/pengeluaran_bulanan">Pengeluaran</a></li>
+            <li><a class="dropdown-item" href="/standard_user/menu/laporan/pengeluaran/pengeluaran_harian">Pengeluaran</a></li>
             <li><a class="dropdown-item" href="#">Laba</a></li>
           </ul>
         </li>

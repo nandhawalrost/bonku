@@ -96,7 +96,7 @@ class PengeluaranController extends Controller
         ->where('id', $id)
         ->first();
         
-        return view('menu.pengeluaran.delete_confirmation',['pengeluaran' => $data_pengeluaran]);   
+        return view('menu.pengeluaran.delete_confirmation', ['pengeluaran' => $data_pengeluaran]);   
     }
 
     public function destroy($id)
@@ -111,4 +111,19 @@ class PengeluaranController extends Controller
         return redirect('/standard_user/menu/pengeluaran')->with('delete_succeed','Deleted!');
     }
 
+    public function search_pengeluaran(Request $request)
+    {
+        $user_email = Auth::user()->email;
+
+        $deskripsi = $request->get('deskripsi');
+        
+        $search_pengeluaran = DB::table('pengeluaran')
+        ->where('deskripsi', 'like', '%' .$deskripsi. '%')
+        ->where('user_email', $user_email)
+        ->paginate(10);
+
+        $search_pengeluaran->appends($request->all());
+
+        return view('menu.pengeluaran.search', compact('search_pengeluaran'));
+    }
 }

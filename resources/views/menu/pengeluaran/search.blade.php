@@ -7,40 +7,34 @@
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
-          <th>Nama Produk</th>
-          <th>Jumlah</th>
-          <th>Jumlah Minimum</th>
-          <th>Jumlah Maksimum</th>
-          <th>Harga</th>
-          <th>Satuan</th>
+          <th>Deskripsi</th>
+          <th>Total</th>
+          <th>Keterangan</th>
           <th>Waktu Dibuat</th>
           <th>Waktu Diubah</th>
           <th></th>
           <th></th>
         </thead>
         <tbody>
-          @foreach($search_produk as $produk)
+          @foreach($search_pengeluaran as $pengeluaran)
           <tr>
-            <td>{{$produk->id}}</td>
-            <td>{{$produk->nama_produk}}</td>
-            <td>{{$produk->jumlah}}</td>
-            <td>{{$produk->jumlah_minimum}}</td>
-            <td>{{$produk->jumlah_maksimum}}</td>
-            <td>{{$produk->harga}}</td>
-            <td>{{$produk->satuan}}</td>
-            <td>{{$produk->created_at}}</td>
-            <td>{{$produk->updated_at}}</td>
+            <td>{{$pengeluaran->id}}</td>
+            <td>{{$pengeluaran->deskripsi}}</td>
+            <td>{{$pengeluaran->total}}</td>
+            <td>{{$pengeluaran->keterangan}}</td>
+            <td>{{$pengeluaran->created_at}}</td>
+            <td>{{$pengeluaran->updated_at}}</td>
             <td>
-              <a href="/standard_user/menu/produk/{{$produk->id}}/edit">Ubah</a>
+              <a href="/standard_user/menu/pengeluaran/{{$pengeluaran->id}}/edit">Ubah</a>
             </td>
             <td>
-              <a href="/standard_user/menu/produk/{{$produk->id}}/delete_confirmation">Hapus</a>
+              <a href="/standard_user/menu/pengeluaran/{{$pengeluaran->id}}/delete_confirmation">Hapus</a>
             </td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $search_produk->links() }}
+      {{ $search_pengeluaran->links() }}
     </div>
   </div>
 </div>
@@ -48,7 +42,7 @@
 
 </br>
 <div class="container-sm mb-3">
-<a href="/standard_user/menu/produk" class="btn btn-secondary btn-lg btn-block">Kembali</a>
+<a href="/standard_user/menu/pengeluaran" class="btn btn-secondary btn-lg btn-block">Kembali</a>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->
