@@ -43,12 +43,24 @@ class PengeluaranHarianController extends Controller
         ->whereDate('created_at', Carbon::today())
         ->max('total');
         
+        
+        //rata-rata pengeluaran
+        //if rata-rata = 0 tidak dihitung, else dihitung
+        if($sum_pengeluaran_hari_ini == 0 | $frekuensi_pengeluaran_hari_ini == 0)
+        {
+            $rata_pengeluaran_hari_ini = 0;
+        }elseif(!$sum_pengeluaran_hari_ini == 0 | !$frekuensi_pengeluaran_hari_ini ==0)
+        {
+            $rata_pengeluaran_hari_ini = $sum_pengeluaran_hari_ini/$frekuensi_pengeluaran_hari_ini;
+        }
+
         return view('menu.laporan.pengeluaran.index', 
         compact('data_pengeluaran_hari_ini',
         'sum_pengeluaran_hari_ini',
         'frekuensi_pengeluaran_hari_ini',
         'min_pengeluaran_hari_ini',
-        'max_pengeluaran_hari_ini'
+        'max_pengeluaran_hari_ini',
+        'rata_pengeluaran_hari_ini'
         ));
     }
 
@@ -87,14 +99,23 @@ class PengeluaranHarianController extends Controller
         ->whereDate('created_at', '=', date($tanggal))
         ->max('total');
 
-        $search_pengeluaran_tanggal_ini->appends($request->all());
+        //rata-rata pengeluaran
+        //if rata-rata = 0 tidak dihitung, else dihitung
+        if($sum_pengeluaran_tanggal_ini == 0 | $frekuensi_pengeluaran_tanggal_ini == 0)
+        {
+            $rata_pengeluaran_tanggal_ini = 0;
+        }elseif(!$sum_pengeluaran_tanggal_ini == 0 | !$frekuensi_pengeluaran_tanggal_ini ==0)
+        {
+            $rata_pengeluaran_tanggal_ini = $sum_pengeluaran_tanggal_ini/$frekuensi_pengeluaran_tanggal_ini;
+        }
 
         return view('menu.laporan.pengeluaran.search_tanggal', 
         compact('search_pengeluaran_tanggal_ini',
         'sum_pengeluaran_tanggal_ini',
         'frekuensi_pengeluaran_tanggal_ini',
         'min_pengeluaran_tanggal_ini',
-        'max_pengeluaran_tanggal_ini'
+        'max_pengeluaran_tanggal_ini',
+        'rata_pengeluaran_tanggal_ini'
         ));
     }
 }

@@ -4,7 +4,7 @@
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
-      <h3>Pengeluaran Hari Ini: </h3>
+      <h3>Pendapatan Hari Ini: </h3>
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
@@ -15,25 +15,25 @@
           <th>Waktu Diubah</th>
         </thead>
         <tbody>
-          @foreach($data_pengeluaran_hari_ini as $pengeluaran)
+          @foreach($data_pendapatan_hari_ini as $pendapatan)
           <tr>
-            <td>{{$pengeluaran->id}}</td>
-            <td>{{$pengeluaran->deskripsi}}</td>
-            <td>{{$pengeluaran->total}}</td>
-            <td>{{$pengeluaran->keterangan}}</td>
-            <td>{{$pengeluaran->created_at}}</td>
-            <td>{{$pengeluaran->updated_at}}</td>
+            <td>{{$pendapatan->id}}</td>
+            <td>Pelanggan: {{$pendapatan->nama_pelanggan}}</td>
+            <td>{{$pendapatan->total_harga}}</td>
+            <td>{{$pendapatan->keterangan}}</td>
+            <td>{{$pendapatan->created_at}}</td>
+            <td>{{$pendapatan->updated_at}}</td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $data_pengeluaran_hari_ini->links() }}
+      {{ $data_pendapatan_hari_ini->links() }}
     </div>
-    <label><b>Total Pengeluaran: {{$sum_pengeluaran_hari_ini}}</b></label>
-    </br><label><b>Banyaknya Pengeluaran: {{$frekuensi_pengeluaran_hari_ini}}</b></label>
-    </br><label><b>Pengeluaran Terendah: {{$min_pengeluaran_hari_ini}}</b></label>
-    </br><label><b>Pengeluaran Tertinggi: {{$max_pengeluaran_hari_ini}}</b></label>
-    </br><label><b>Rata-rata: {{$rata_pengeluaran_hari_ini}}</b></label>
+    <label><b>Total Pendapatan: {{$sum_pendapatan_hari_ini}}</b></label>
+    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_pendapatan_hari_ini}}</b></label>
+    </br><label><b>Pendapatan Terendah: {{$min_pendapatan_hari_ini}}</b></label>
+    </br><label><b>Pendapatan Tertinggi: {{$max_pendapatan_hari_ini}}</b></label>
+    </br><label><b>Rata-rata: {{$sum_pendapatan_hari_ini/$frekuensi_pendapatan_hari_ini}}</b></label>
   </div>
 </div>
 

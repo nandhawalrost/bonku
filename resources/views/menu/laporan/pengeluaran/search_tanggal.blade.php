@@ -33,7 +33,7 @@
     </br><label><b>Banyaknya Pengeluaran: {{$frekuensi_pengeluaran_tanggal_ini}}</b></label>
     </br><label><b>Pengeluaran Terendah: {{$min_pengeluaran_tanggal_ini}}</b></label>
     </br><label><b>Pengeluaran Tertinggi: {{$max_pengeluaran_tanggal_ini}}</b></label>
-    </br><label><b>Rata-rata: {{$sum_pengeluaran_tanggal_ini/$frekuensi_pengeluaran_tanggal_ini}}</b></label>
+    </br><label><b>Rata-rata: {{$rata_pengeluaran_tanggal_ini}}</b></label>
   </div>
 </div>
 

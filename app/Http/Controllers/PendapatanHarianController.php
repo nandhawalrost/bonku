@@ -21,36 +21,39 @@ class PendapatanHarianController extends Controller
         ->paginate(10);
 
         //sum total harga table transaksi
-        $data_pendapatan_hari_ini = DB::table('transaksi')
+        $sum_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
         ->whereDate('updated_at', '=', Carbon::today()) 
         ->sum('total_harga');
 
         //hitung jumlah row
-        $data_pendapatan_hari_ini = DB::table('transaksi')
+        $frekuensi_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
         ->whereDate('updated_at', '=', Carbon::today()) 
         ->count();
 
         //total pendapatan terendah hari ini
-        $data_pendapatan_hari_ini = DB::table('transaksi')
+        $min_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
         ->whereDate('updated_at', '=', Carbon::today()) 
         ->min('total_harga');
 
         //total pendapatan tertinggi hari ini
-        $data_pendapatan_hari_ini = DB::table('transaksi')
+        $max_pendapatan_hari_ini = DB::table('transaksi')
         ->select(array('id','total_harga','keterangan','nama_pelanggan','created_at','updated_at'))
         ->where('user_email','=',$user_email)
         ->whereDate('updated_at', '=', Carbon::today()) 
         ->max('total_harga');
 
-        dd($data_pendapatan_hari_ini);
         return view('menu.laporan.pendapatan.index', 
-        compact('data_pendapatan_hari_ini'
+        compact('data_pendapatan_hari_ini',
+        'sum_pendapatan_hari_ini',
+        'frekuensi_pendapatan_hari_ini',
+        'min_pendapatan_hari_ini',
+        'max_pendapatan_hari_ini'
         ));
     }
 
