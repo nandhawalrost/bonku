@@ -5,35 +5,37 @@
   <div class="box-header">
     <div class="box-body table-responsive">
       <h3>Pendapatan Hari Ini: </h3>
+      </br>
+      <p  style="font-size:20px;">Dari Input Transaksi:</p>
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
-          <th>Deskripsi</th>
+          <th>Nama Pelanggan</th>
           <th>Total</th>
           <th>Keterangan</th>
           <th>Waktu Dibuat</th>
           <th>Waktu Diubah</th>
         </thead>
         <tbody>
-          @foreach($data_pendapatan_hari_ini as $pendapatan)
+          @foreach($data_transaksi_hari_ini as $transaksi)
           <tr>
-            <td>{{$pendapatan->id}}</td>
-            <td>Pelanggan: {{$pendapatan->nama_pelanggan}}</td>
-            <td>{{$pendapatan->total_harga}}</td>
-            <td>{{$pendapatan->keterangan}}</td>
-            <td>{{$pendapatan->created_at}}</td>
-            <td>{{$pendapatan->updated_at}}</td>
+            <td>{{$transaksi->id}}</td>
+            <td>{{$transaksi->nama_pelanggan}}</td>
+            <td>{{$transaksi->total_harga}}</td>
+            <td>{{$transaksi->keterangan}}</td>
+            <td>{{$transaksi->created_at}}</td>
+            <td>{{$transaksi->updated_at}}</td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $data_pendapatan_hari_ini->links() }}
+      {{ $data_transaksi_hari_ini->links() }}
     </div>
-    <label><b>Total Pendapatan: {{$sum_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Pendapatan Terendah: {{$min_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Pendapatan Tertinggi: {{$max_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Rata-rata: {{$rata_pendapatan_hari_ini}}</b></label>
+    <label><b>Total Pendapatan: {{$sum_transaksi_hari_ini}}</b></label>
+    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_transaksi_hari_ini}}</b></label>
+    </br><label><b>Pendapatan Terendah: {{$min_transaksi_hari_ini}}</b></label>
+    </br><label><b>Pendapatan Tertinggi: {{$max_transaksi_hari_ini}}</b></label>
+    </br><label><b>Rata-rata: {{$rata_transaksi_hari_ini}}</b></label>
   </div>
 </div>
 
