@@ -54,9 +54,19 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('search_pengeluaran','PengeluaranController@search_pengeluaran');
     });
 
+    Route::prefix('standard_user/menu/pendapatan')->group(function () {
+        Route::get('', 'PendapatanController@pendapatan'); 
+        Route::post('/store','PendapatanController@store');
+        Route::get('/{id}/edit','PendapatanController@edit');
+        Route::post('/{id}/update','PendapatanController@update');
+        Route::get('/{id}/delete_confirmation','PendapatanController@delete_confirmation');
+        Route::get('/{id}/destroy','PendapatanController@destroy');
+        Route::get('search_pendapatan','PendapatanController@search_pendapatan');
+    });
+    
     //LAPORAN
 
-    //PENGELUARAN
+    //LAPORAN PENGELUARAN
     Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_harian')->group(function () {
         Route::get('','PengeluaranHarianController@pengeluaran_harian');
         Route::get('/search_tanggal','PengeluaranHarianController@search_tanggal');
@@ -67,7 +77,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/filter','PengeluaranBulananController@filter');
     });
 
-    //PENDAPATAN
+    //LAPORAN PENDAPATAN
     Route::prefix('standard_user/menu/laporan/pendapatan/pendapatan_harian')->group(function () {
         Route::get('','PendapatanHarianController@pendapatan_harian');
         Route::get('/search_tanggal','PendapatanHarianController@search_tanggal');

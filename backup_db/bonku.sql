@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2021 at 05:17 PM
+-- Generation Time: Jun 16, 2021 at 12:08 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.2.32
 
@@ -67,7 +67,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2021_06_01_031510_modify_keterangan_to_nullable_transaksi_table', 7),
 (20, '2021_06_01_041457_add_satuan_to_rincian_transaksi_table', 8),
 (21, '2021_06_04_062357_create_pengeluaran_table', 9),
-(22, '2021_06_05_095529_add_user_email_to_rincian_transaksi_table', 10);
+(22, '2021_06_05_095529_add_user_email_to_rincian_transaksi_table', 10),
+(23, '2021_06_16_092542_create_pendapatan_table', 11);
 
 -- --------------------------------------------------------
 
@@ -80,6 +81,29 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pendapatan`
+--
+
+CREATE TABLE `pendapatan` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `deskripsi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `total` int(11) NOT NULL,
+  `keterangan` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pendapatan`
+--
+
+INSERT INTO `pendapatan` (`id`, `deskripsi`, `total`, `keterangan`, `user_email`, `created_at`, `updated_at`) VALUES
+(1, 'beli bensin', 25000, 'bensin motor', 'nandha-owner@bonqu.online', '2021-06-16 09:38:26', '2021-06-16 10:05:48');
 
 -- --------------------------------------------------------
 
@@ -148,7 +172,10 @@ INSERT INTO `produk` (`id`, `nama_produk`, `jumlah`, `jumlah_minimum`, `jumlah_m
 (19, 'pick dunlop', 400, 1, 9999, 14000, 'pcs', 'test@bonqu.online', '2021-06-08 09:25:37', NULL),
 (20, 'seymour duncan invader neck', 4, 1, 99999, 1100000, 'pcs', 'test@bonqu.online', '2021-06-08 09:26:49', NULL),
 (21, 'seymour duncan inv (pasang)', 5, 1, 999, 1800000, 'pasang', 'test@bonqu.online', '2021-06-08 09:27:33', NULL),
-(22, 'pick fender (lusinan)', 6, 1, 999999, 34000, 'lusin', 'test@bonqu.online', '2021-06-08 09:28:27', NULL);
+(22, 'pick fender (lusinan)', 6, 1, 999999, 34000, 'lusin', 'test@bonqu.online', '2021-06-08 09:28:27', NULL),
+(23, 'santan', 0, 0, 0, 20000, 'kg', 'rosita@gmail.com', '2021-06-16 04:51:19', '2021-06-16 04:56:27'),
+(24, 'kelapa busuk', 0, 0, 0, 0, '-', 'rosita@gmail.com', '2021-06-16 04:52:45', NULL),
+(25, 'kelapa', 0, 0, 0, 10000, 'biji', 'rosita@gmail.com', '2021-06-16 04:57:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -182,7 +209,11 @@ INSERT INTO `rincian_transaksi` (`id`, `id_transaksi`, `nama_produk`, `jumlah`, 
 (64, '36', 'ibanez rg350', 1, 'pcs', 3400000, 3400000, 'test@bonqu.online', '2021-06-07 13:33:48', NULL),
 (65, '38', 'fender stratocaster classic', 4, 'pcs', 79000000, 316000000, 'test@bonqu.online', '2021-06-12 08:06:06', NULL),
 (66, '37', 'tempat pensil', 4, 'pcs', 100000, 400000, 'nandha-owner@bonqu.online', '2021-06-14 12:34:20', NULL),
-(67, '37', 'buku tulis', 1, 'pcs', 2000, 2000, 'nandha-owner@bonqu.online', '2021-06-14 12:34:25', NULL);
+(67, '37', 'buku tulis', 1, 'pcs', 2000, 2000, 'nandha-owner@bonqu.online', '2021-06-14 12:34:25', NULL),
+(68, '39', 'tempat pensil', 2, 'pcs', 100000, 200000, 'nandha-owner@bonqu.online', '2021-06-15 06:58:58', NULL),
+(69, '39', 'drawing pen', 1, 'pcs', 10000, 10000, 'nandha-owner@bonqu.online', '2021-06-15 06:59:29', NULL),
+(70, '40', 'buku tulis', 9, 'pcs', 2000, 18000, 'nandha-owner@bonqu.online', '2021-06-15 07:01:05', NULL),
+(71, '41', 'drawing pen', 1, 'pcs', 10000, 10000, 'nandha-owner@bonqu.online', '2021-06-15 07:03:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -210,8 +241,12 @@ INSERT INTO `transaksi` (`id`, `nama_pelanggan`, `total_harga`, `total_bayar`, `
 (34, NULL, 85800000, 100000000, 14200000, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:58:38'),
 (35, 'badu', 3400000, 3400000, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 09:59:27'),
 (36, NULL, 316000000, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-07 13:33:48'),
-(37, 'walrost', 402000, 500000, 98000, 'nandha-owner@bonqu.online', 'orang arya graha', NULL, '2021-06-14 12:38:29'),
-(38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-12 08:06:06');
+(37, 'walrost', 402000, 500000, 98000, 'nandha-owner@bonqu.online', 'orang arya graha', NULL, '2021-06-15 06:27:35'),
+(38, NULL, 0, 0, 0, 'test@bonqu.online', NULL, NULL, '2021-06-12 08:06:06'),
+(39, NULL, 210000, 210000, 0, 'nandha-owner@bonqu.online', 'kirim ke kedaung', NULL, '2021-06-15 06:59:37'),
+(40, NULL, 18000, 20000, 2000, 'nandha-owner@bonqu.online', NULL, NULL, '2021-06-15 07:01:13'),
+(41, NULL, 10000, 10000, 0, 'nandha-owner@bonqu.online', NULL, NULL, '2021-06-15 07:03:28'),
+(42, NULL, 0, 0, 0, 'rosita@gmail.com', 'total penjualan hari ini', NULL, '2021-06-16 05:29:51');
 
 -- --------------------------------------------------------
 
@@ -235,8 +270,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', 'zqIvsV2ZjEMx58MZIFeaqMEl83h52rqubmFfzO31gQxcQ4buOVUrLQvP1uw7', '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
-(2, 'test user', 'test@bonqu.online', NULL, '$2y$10$byM9c6EIhp58F7IcRXnr3uTXXV6SQJPEbqv09OhT3loBfOZBftgsG', NULL, '2021-06-05 02:15:33', '2021-06-05 02:15:33');
+(1, 'nandha', 'nandha-owner@bonqu.online', NULL, '$2y$10$D5lAahxJzUevNzXLU/r7m.7GV.2uwDSpniOMFt6F7ZTMItMrT0X7y', 'CtOpAVVV7LjUiqTfx3oF7GCNwE2iwMbWZuqT4kuAXXBzVaVQ36G9zLA3DVOA', '2021-06-04 01:49:39', '2021-06-04 01:49:39'),
+(2, 'test user', 'test@bonqu.online', NULL, '$2y$10$byM9c6EIhp58F7IcRXnr3uTXXV6SQJPEbqv09OhT3loBfOZBftgsG', NULL, '2021-06-05 02:15:33', '2021-06-05 02:15:33'),
+(3, 'rosita', 'rosita@gmail.com', NULL, '$2y$10$DuW6q6JwlIDCBc7J4Nkci.qkDKay1RKQHUSx4XvZ1TWDwBD9PNBQe', NULL, '2021-06-15 20:30:55', '2021-06-15 20:30:55');
 
 --
 -- Indexes for dumped tables
@@ -259,6 +295,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
+
+--
+-- Indexes for table `pendapatan`
+--
+ALTER TABLE `pendapatan`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `pengeluaran`
@@ -305,7 +347,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `pendapatan`
+--
+ALTER TABLE `pendapatan`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengeluaran`
@@ -317,25 +365,25 @@ ALTER TABLE `pengeluaran`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `rincian_transaksi`
 --
 ALTER TABLE `rincian_transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -6,15 +6,15 @@ use Illuminate\Http\Request;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
-class PengeluaranController extends Controller
+class PendapatanController extends Controller
 {
-    public function pengeluaran()
+    public function pendapatan()
     {
         $user_email = Auth::user()->email;
 
-        $data_pengeluaran = DB::table('pengeluaran')->where('user_email','=',$user_email)->orderByDesc('id')->get();
+        $data_pendapatan = DB::table('pendapatan')->where('user_email','=',$user_email)->orderByDesc('id')->get();
         
-        return view('menu.pengeluaran.index', compact('data_pengeluaran'));
+        return view('menu.pendapatan.index', compact('data_pendapatan'));
     }
 
     public function store(Request $request)
@@ -22,7 +22,7 @@ class PengeluaranController extends Controller
         $user_email = Auth::user()->email;
 
         $validatedData = $request->validate([
-            'deskripsi' => 'required|unique:pengeluaran|max:255',
+            'deskripsi' => 'required|unique:pendapatan|max:255',
             'jumlah' => 'max:11',
             'keterangan' => 'max:255'
         ]);
@@ -38,7 +38,7 @@ class PengeluaranController extends Controller
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
-        DB::table('pengeluaran')->insert([
+        DB::table('pendapatan')->insert([
             'deskripsi'=>$deskripsi,
             'total'=>$total,
             'keterangan'=>$keterangan,
@@ -46,17 +46,17 @@ class PengeluaranController extends Controller
             "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
         ]);
 
-        return redirect('/standard_user/menu/pengeluaran')->with('succeed','Sent!');
+        return redirect('/standard_user/menu/pendapatan')->with('succeed','Sent!');
     }
 
     public function edit($id)
     {
         $user_email = Auth::user()->email;
-        $data_pengeluaran = DB::table('pengeluaran')
+        $data_pendapatan = DB::table('pendapatan')
         ->where('user_email','=',$user_email)
         ->where('id', $id)->first(); //or find()
         
-        return view('menu.pengeluaran.edit',['pengeluaran' => $data_pengeluaran]);
+        return view('menu.pendapatan.edit',['pendapatan' => $data_pendapatan]);
     }
 
     public function update(Request $request, $id) //update (reduce balance)
@@ -75,7 +75,7 @@ class PengeluaranController extends Controller
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
-        $update_need_order = DB::table('pengeluaran')
+        $update_need_order = DB::table('pendapatan')
         ->where('id', $request->id)->update([
             'deskripsi'=>$deskripsi,
             'total'=>$total,
@@ -84,46 +84,46 @@ class PengeluaranController extends Controller
             "updated_at" =>  $carbon_now
         ]);
 
-        return redirect('/standard_user/menu/pengeluaran')->with('succeed','Sent!');
+        return redirect('/standard_user/menu/pendapatan')->with('succeed','Sent!');
     }
 
     public function delete_confirmation($id)
     {
         $user_email = Auth::user()->email;
 
-        $data_pengeluaran = DB::table('pengeluaran')
+        $data_pendapatan = DB::table('pendapatan')
         ->where('user_email','=',$user_email)
         ->where('id', $id)
         ->first();
         
-        return view('menu.pengeluaran.delete_confirmation', ['pengeluaran' => $data_pengeluaran]);   
+        return view('menu.pendapatan.delete_confirmation', ['pendapatan' => $data_pendapatan]);   
     }
 
     public function destroy($id)
     {
         $user_email = Auth::user()->email;
 
-        DB::table('pengeluaran')
+        DB::table('pendapatan')
         ->where('user_email','=',$user_email)
         ->where('id', '=', $id)
         ->delete();
 
-        return redirect('/standard_user/menu/pengeluaran')->with('delete_succeed','Deleted!');
+        return redirect('/standard_user/menu/pendapatan')->with('delete_succeed','Deleted!');
     }
 
-    public function search_pengeluaran(Request $request)
+    public function search_pendapatan(Request $request)
     {
         $user_email = Auth::user()->email;
 
         $deskripsi = $request->get('deskripsi');
         
-        $search_pengeluaran = DB::table('pengeluaran')
+        $search_pendapatan = DB::table('pendapatan')
         ->where('deskripsi', 'like', '%' .$deskripsi. '%')
         ->where('user_email', $user_email)
         ->paginate(10);
 
-        $search_pengeluaran->appends($request->all());
+        $search_pendapatan->appends($request->all());
 
-        return view('menu.pengeluaran.search', compact('search_pengeluaran'));
+        return view('menu.pendapatan.search', compact('search_pendapatan'));
     }
 }
