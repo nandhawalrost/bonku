@@ -4,7 +4,7 @@
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
-      <h3>Pengeluaran Hari Ini: </h3>
+      <h3>Hasil Penelusuran: </h3>
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>

@@ -4,7 +4,7 @@
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
-      <h3>Pendapatan Hari Ini: </h3>
+      <h3>Hasil Penelusuran: </h3>
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
@@ -15,7 +15,7 @@
           <th>Waktu Diubah</th>
         </thead>
         <tbody>
-          @foreach($data_pendapatan_hari_ini as $pendapatan)
+        @foreach($data_pendapatan_tanggal_ini as $pendapatan)
           <tr>
             <td>{{$pendapatan->id}}</td>
             <td>Pelanggan: {{$pendapatan->nama_pelanggan}}</td>
@@ -27,13 +27,13 @@
           @endforeach
         </tbody>
       </table>
-      {{ $data_pendapatan_hari_ini->links() }}
+      {{ $data_pendapatan_tanggal_ini->links() }}
     </div>
-    <label><b>Total Pendapatan: {{$sum_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Pendapatan Terendah: {{$min_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Pendapatan Tertinggi: {{$max_pendapatan_hari_ini}}</b></label>
-    </br><label><b>Rata-rata: {{$rata_pendapatan_hari_ini}}</b></label>
+    <label><b>Total Pendapatan: {{$sum_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Pendapatan Terendah: {{$min_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Pendapatan Tertinggi: {{$max_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Rata-rata: {{$rata_pendapatan_tanggal_ini}}</b></label>
   </div>
 </div>
 
