@@ -12,6 +12,8 @@
     </div>
 @endif
 
+<p  style="font-size:20px;">Input Pendapatan</p>
+
 <form class="form" action="/standard_user/menu/pendapatan/store" method="POST">
 
   {{csrf_field()}}    
