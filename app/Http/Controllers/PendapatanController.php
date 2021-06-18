@@ -12,7 +12,10 @@ class PendapatanController extends Controller
     {
         $user_email = Auth::user()->email;
 
-        $data_pendapatan = DB::table('pendapatan')->where('user_email','=',$user_email)->orderByDesc('id')->get();
+        $data_pendapatan = DB::table('pendapatan')
+        ->where('user_email','=',$user_email)
+        ->orderByDesc('id')
+        ->paginate(10);
         
         return view('menu.pendapatan.index', compact('data_pendapatan'));
     }

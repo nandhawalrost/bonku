@@ -58,7 +58,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2021 Copyright:
-      <a class="text-white" href="#">https://bonku-saas.online</a>
+      <a class="text-white" href="https://bonku.online">https://bonku.online</a>
     </div>
     <!-- Copyright -->
   </footer>

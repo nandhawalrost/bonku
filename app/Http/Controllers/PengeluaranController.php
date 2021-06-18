@@ -12,7 +12,10 @@ class PengeluaranController extends Controller
     {
         $user_email = Auth::user()->email;
 
-        $data_pengeluaran = DB::table('pengeluaran')->where('user_email','=',$user_email)->orderByDesc('id')->get();
+        $data_pengeluaran = DB::table('pengeluaran')
+        ->where('user_email','=',$user_email)
+        ->orderByDesc('id')
+        ->paginate(10);
         
         return view('menu.pengeluaran.index', compact('data_pengeluaran'));
     }

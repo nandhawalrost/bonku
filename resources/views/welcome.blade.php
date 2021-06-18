@@ -63,6 +63,7 @@
             }
         </style>
     </head>
+    @guest
     <body>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
@@ -97,4 +98,10 @@
             </div>
         </div>
     </body>
+    @else
+    
+    <script type="text/javascript">
+        window.location = "{{url('/login')}}";//here double curly bracket
+    </script>
+    @endguest
 </html>
