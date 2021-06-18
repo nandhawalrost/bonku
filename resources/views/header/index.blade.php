@@ -38,7 +38,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="/standard_user/menu/laporan/pendapatan/pendapatan_harian">Pendapatan Kotor</a></li>
             <li><a class="dropdown-item" href="/standard_user/menu/laporan/pengeluaran/pengeluaran_harian">Pengeluaran</a></li>
-            <li><a class="dropdown-item" href="#">Pendapatan Bersih</a></li>
+            <li><a class="dropdown-item" href="/standard_user/menu/laporan/pendapatan/pendapatan_bersih_harian">Pendapatan Bersih</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown active">

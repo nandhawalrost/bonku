@@ -83,6 +83,12 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('/search_tanggal','PendapatanHarianController@search_tanggal');
     });
 
+    //LAPORAN PENDAPATAN BERSIH
+    Route::prefix('standard_user/menu/laporan/pendapatan/pendapatan_bersih_harian')->group(function () {
+        Route::get('','PendapatanBersihHarianController@pendapatan_bersih_harian');
+        //Route::get('/search_tanggal','PendapatanHarianController@search_tanggal');
+    });
+
 });
 
 Auth::routes();
