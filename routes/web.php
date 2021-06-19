@@ -53,6 +53,8 @@ Route::group(['middleware' => ['auth']], function() {
         Route::post('/{id}/update','EditDeleteTransaksiController@update');
         Route::get('/{id}/destroy_transaksi','EditDeleteTransaksiController@destroy_transaksi');
         Route::get('/{id}/edit_rincian','EditDeleteTransaksiController@edit_rincian');
+        Route::get('/{id}/edit_nominal','EditDeleteTransaksiController@edit_nominal');
+        Route::post('/{id}/update_nominal','EditDeleteTransaksiController@update_nominal');
 
         //DestroyRincianController
         Route::get('edit_rincian/{id}/destroy_rincian','DestroyRincianController@destroy_rincian');

@@ -30,6 +30,7 @@
           <th>Total Kembali</th>
           <th></th>
           <th></th>
+          <th></th>
         </thead>
         <tbody>
           @foreach($data_transaksi as $transaksi)
@@ -41,6 +42,9 @@
             <td>{{$transaksi->total_harga}}</td>
             <td>{{$transaksi->total_bayar}}</td>
             <td>{{$transaksi->total_kembali}}</td>
+            <td>
+            <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/edit_nominal">Edit Nominal</a>
+            </td>
             <td>
               <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/edit_rincian">Edit Rincian</a>
             </td>
