@@ -33,6 +33,7 @@
 
 @foreach($data_transaksi as $transaksi)
 <div class="container-sm">
+<h3><b>ID: {{$transaksi->id}}</b></h3>
   <div class="form-group row">
     <label for="" class="col-sm-2 col-form-label">Nama Pelanggan</label>
     <div class="col-sm-6">
@@ -50,6 +51,26 @@
 
 
 <div class="container-sm">
+
+<!--success alert-->
+@if(session('input_succeed'))
+  <div class = "alert alert-success alert-dismissible fade show" role="alert">
+  Sent!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+@if(session('destroy_succeed'))
+  <div class = "alert alert-success alert-dismissible fade show" role="alert">
+  Deleted!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+<script>
+</script>
+<!--end success alert-->
+
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
@@ -167,7 +188,7 @@
 
 </br>
 <div class="container-sm mb-3">
-<a href="/home" class="btn btn-secondary btn-lg btn-block">Kembali</a>
+<a href="{{ url()->previous() }}" class="btn btn-secondary btn-lg btn-block">Kembali</a>
 </div>
 
 <script>

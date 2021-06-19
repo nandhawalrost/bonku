@@ -43,7 +43,7 @@
 </div>
 
 <div class="container-sm mb-3">
-<a href="/standard_user/menu/pengeluaran" class="btn btn-secondary btn-lg btn-block">Kembali</a>
+<a href="{{ url()->previous() }}" class="btn btn-secondary btn-lg btn-block">Kembali</a>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->

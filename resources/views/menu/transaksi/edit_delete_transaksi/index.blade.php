@@ -1,40 +1,57 @@
 @include('header.index')
 
 <div class="container-sm">
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+</div>
+
+<div class="container-sm">
+
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
-          <th>Deskripsi</th>
-          <th>Total</th>
+          <th>Tanggal</th>
+          <th>Nama Pelanggan</th>
           <th>Keterangan</th>
-          <th>Waktu Dibuat</th>
-          <th>Waktu Diubah</th>
+          <th>Total Harga</th>
+          <th>Total Bayar</th>
+          <th>Total Kembali</th>
           <th></th>
           <th></th>
         </thead>
         <tbody>
-          @foreach($search_pendapatan as $pendapatan)
+          @foreach($data_transaksi as $transaksi)
           <tr>
-            <td>{{$pendapatan->id}}</td>
-            <td>{{$pendapatan->deskripsi}}</td>
-            <td>{{$pendapatan->total}}</td>
-            <td>{{$pendapatan->keterangan}}</td>
-            <td>{{$pendapatan->created_at}}</td>
-            <td>{{$pendapatan->updated_at}}</td>
+            <td>{{$transaksi->id}}</td>
+            <td>{{$transaksi->updated_at}}</td>
+            <td>{{$transaksi->nama_pelanggan}}</td>
+            <td>{{$transaksi->keterangan}}</td>
+            <td>{{$transaksi->total_harga}}</td>
+            <td>{{$transaksi->total_bayar}}</td>
+            <td>{{$transaksi->total_kembali}}</td>
             <td>
-              <a href="/standard_user/menu/pendapatan/{{$pendapatan->id}}/edit">Ubah</a>
+              <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/edit_rincian">Edit Rincian</a>
             </td>
             <td>
-              <a href="/standard_user/menu/pendapatan/{{$pendapatan->id}}/delete_confirmation">Hapus</a>
+              <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/destroy_transaksi">Hapus</a>
             </td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $search_pendapatan->links() }}
+      {{ $data_transaksi->links() }}
     </div>
   </div>
 </div>

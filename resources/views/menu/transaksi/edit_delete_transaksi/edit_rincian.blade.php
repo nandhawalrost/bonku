@@ -1,40 +1,48 @@
 @include('header.index')
 
 <div class="container-sm">
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+</div>
+
+<div class="container-sm">
+ID: <b>{{$id_transaksi}}</b></br></br>
+<p>*<b>Setelah menghapus rincian</b> Total Harga, Total Kembali, Total Bayar tidak terubah otomatis, hal ini kami lakukan demi menghindari data yang tidak akurat. <a href = "/standard_user/menu/transaksi/edit_delete_transaksi">Klik disini</a> untuk melakukan perubahan</p>
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
-      <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
+    <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
-          <th>ID</th>
-          <th>Deskripsi</th>
-          <th>Total</th>
-          <th>Keterangan</th>
-          <th>Waktu Dibuat</th>
-          <th>Waktu Diubah</th>
-          <th></th>
+          <th>Nama Produk</th>
+          <th>Jumlah</th>
+          <th>Harga</th>
+          <th>Sub Total</th>
           <th></th>
         </thead>
         <tbody>
-          @foreach($search_pendapatan as $pendapatan)
+          @foreach($data_rincian as $rincian)
           <tr>
-            <td>{{$pendapatan->id}}</td>
-            <td>{{$pendapatan->deskripsi}}</td>
-            <td>{{$pendapatan->total}}</td>
-            <td>{{$pendapatan->keterangan}}</td>
-            <td>{{$pendapatan->created_at}}</td>
-            <td>{{$pendapatan->updated_at}}</td>
+            <td>{{$rincian->nama_produk}}</td>
+            <td>{{$rincian->jumlah." ".$rincian->satuan}}</td>
+            <td>{{$rincian->harga}}</td>
+            <td>{{$rincian->sub_total}}</td>
             <td>
-              <a href="/standard_user/menu/pendapatan/{{$pendapatan->id}}/edit">Ubah</a>
-            </td>
-            <td>
-              <a href="/standard_user/menu/pendapatan/{{$pendapatan->id}}/delete_confirmation">Hapus</a>
+              <a href="/standard_user/menu/transaksi/edit_delete_transaksi/edit_rincian/{{$rincian->id}}/destroy_rincian">Hapus</a>
             </td>
           </tr>
           @endforeach
         </tbody>
       </table>
-      {{ $search_pendapatan->links() }}
+      {{ $data_rincian->links() }}
     </div>
   </div>
 </div>

@@ -163,7 +163,7 @@ class TransaksiController extends Controller
                 'updated_at'=>$carbon_now
             ]);
 
-            return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+            return redirect('/standard_user/menu/transaksi')->with('input_succeed','Sent!');
             
         //if request not empty
         }elseif(!empty($nama_produk)||!empty($jumlah))
@@ -199,7 +199,7 @@ class TransaksiController extends Controller
                 'updated_at'=>$carbon_now
             ]);
 
-            return redirect('/standard_user/menu/transaksi')->with('succeed','Sent!');
+            return redirect('/standard_user/menu/transaksi')->with('input_succeed','Sent!');
         }
         
     }
@@ -225,7 +225,7 @@ class TransaksiController extends Controller
         ->get()
         ->sum('sub_total');
 
-        return redirect('/standard_user/menu/transaksi')->with('delete_succeed','Deleted!');
+        return redirect('/standard_user/menu/transaksi')->with('destroy_succeed','Deleted!');
     }
 
     public function buat_transaksi_baru(Request $request)

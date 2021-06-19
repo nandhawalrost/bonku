@@ -36,12 +36,26 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('search_produk','ProdukController@search_produk');
     });
 
+
+    //PEMBAYARAN
     Route::prefix('standard_user/menu/transaksi')->group(function () { 
         Route::get('', 'TransaksiController@transaksi');
         Route::post('/store_transaksi','TransaksiController@store_transaksi'); 
         Route::get('/{id}/destroy_rincian','TransaksiController@destroy_rincian');
         Route::post('/buat_transaksi_baru','TransaksiController@buat_transaksi_baru');
         Route::post('/cetak_transaksi','TransaksiController@cetak_transaksi');
+    });
+
+    //EDIT, DELETE TRANSAKSI
+    Route::prefix('standard_user/menu/transaksi/edit_delete_transaksi')->group(function () { 
+        Route::get('', 'EditDeleteTransaksiController@edit_delete_transaksi');
+        Route::get('/{id}/edit','EditDeleteTransaksiController@edit');
+        Route::post('/{id}/update','EditDeleteTransaksiController@update');
+        Route::get('/{id}/destroy_transaksi','EditDeleteTransaksiController@destroy_transaksi');
+        Route::get('/{id}/edit_rincian','EditDeleteTransaksiController@edit_rincian');
+
+        //DestroyRincianController
+        Route::get('edit_rincian/{id}/destroy_rincian','DestroyRincianController@destroy_rincian');
     });
 
     Route::prefix('standard_user/menu/pengeluaran')->group(function () {
