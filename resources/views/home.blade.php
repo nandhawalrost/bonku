@@ -1,19 +1,14 @@
 @include('header.index')
 
 <div class="container-sm">
-content
-</div>
-
-<div class="container-sm">
-content
-</div>
-
-<div class="container-sm">
-content
-</div>
-
-<div class="container-sm">
-content
+<p style="font-family: 'Noto Sans KR', sans-serif;">
+Selamat datang, <b> {{ Auth::user()->name }}! </b> 
+<br></br>
+</br>
+Kami <b>Bonqu</b> ingin usaha mikro dapat menikmati teknologi <b>terkini</b> secara <b>mudah,murah, dan aman</b>.
+<br></br>
+Dukung kami ya! &#10084;
+</p>
 </div>
 
 <!-- Optional JavaScript; choose one of the two! -->
@@ -26,7 +21,9 @@ content
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
     -->
-    
-</body>
+
+<!-- Google Font: https://fonts.google.com -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@1000&display=swap" rel="stylesheet"> 
 
 @include('footer.index')

@@ -52,21 +52,6 @@
 
 <div class="container-sm">
 
-<!--success alert-->
-@if(session('input_succeed'))
-  <div class = "alert alert-success alert-dismissible fade show" role="alert">
-  Sent!
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-@endif
-
-@if(session('destroy_succeed'))
-  <div class = "alert alert-success alert-dismissible fade show" role="alert">
-  Deleted!
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-@endif
-
 <script>
 </script>
 <!--end success alert-->
@@ -87,8 +72,9 @@
           <th>
                 <input type="text" name="nama_produk"  class="form-control" list="nama_produk" autocomplete="off" />
                     <datalist id="nama_produk">
-                    @foreach($nama_produk as $produk)
-                        <option value="{{$produk->nama_produk}}"></option>
+                    <!--pluck method-->
+                    @foreach($nama_produk as $nama_produk)
+                        <option value="{{$nama_produk}}"></option>
                     @endforeach
                     </datalist>
                 </input>
@@ -152,6 +138,21 @@
         </div>
     </div>
     @endforeach
+
+<!--success alert-->
+@if(session('input_succeed'))
+  <div class = "alert alert-success alert-dismissible fade show" role="alert">
+  Sent!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+@if(session('destroy_succeed'))
+  <div class = "alert alert-success alert-dismissible fade show" role="alert">
+  Deleted!
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
 
     <div class="form-group row">
         <div class="col-sm-12">
@@ -219,6 +220,5 @@ function hitungKembali() {
     
 </body>
 
-
-
+@include('javascript.keep_scroll_position')
 @include('footer.index')
