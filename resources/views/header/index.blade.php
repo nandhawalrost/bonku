@@ -31,11 +31,15 @@
               <li><a class="dropdown-item" href="/standard_user/menu/transaksi/edit_delete_transaksi">Edit/Hapus Transaksi</a></li>
           </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/standard_user/menu/pengeluaran">Pengeluaran</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="/standard_user/menu/pendapatan">Pendapatan</a>
+
+        <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Input Pengeluaran/Pendapatan
+            </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/standard_user/menu/pengeluaran">Input Pengeluaran</a></li>
+              <li><a class="dropdown-item" href="/standard_user/menu/pendapatan">Input Pendapatan</a></li>
+          </ul>
         </li>
         <li class="nav-item dropdown active">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

@@ -4,22 +4,58 @@
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
-      <h3>Hasil Penelusuran: </h3>
+      <h3>Hasil Penelusuran Tanggal Ini</h3>
+      </br>
+      <p>Total pendapatan kotor anda tanggal ini dari input transaksi dan input pendapatan adalah Rp{{$sum_transaksi_tanggal_ini+$sum_pendapatan_tanggal_ini}},  dengan frekuensi transaksi = {{$frekuensi_transaksi_tanggal_ini}} dan input pendapatan = {{$frekuensi_pendapatan_tanggal_ini}} </p>
+      <p  style="font-size:20px;">Dari Input Transaksi:</p>
       <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
         <thead class="thead-light">
           <th>ID</th>
-          <th>Deskripsi</th>
+          <th>Nama Pelanggan</th>
           <th>Total</th>
           <th>Keterangan</th>
           <th>Waktu Dibuat</th>
           <th>Waktu Diubah</th>
         </thead>
         <tbody>
-        @foreach($data_pendapatan_tanggal_ini as $pendapatan)
+          @foreach($data_transaksi_tanggal_ini as $transaksi)
+          <tr>
+            <td>{{$transaksi->id}}</td>
+            <td>{{$transaksi->nama_pelanggan}}</td>
+            <td>{{$transaksi->total_harga}}</td>
+            <td>{{$transaksi->keterangan}}</td>
+            <td>{{$transaksi->created_at}}</td>
+            <td>{{$transaksi->updated_at}}</td>
+          </tr>
+          @endforeach
+        </tbody>
+      </table>
+      {{ $data_transaksi_tanggal_ini->links() }}
+    </div>
+    <label><b>Total Pendapatan: {{$sum_transaksi_tanggal_ini}}</b></label>
+    </br><label><b>Frekuensi: {{$frekuensi_transaksi_tanggal_ini}}</b></label>
+    </br><label><b>Terendah: {{$min_transaksi_tanggal_ini}}</b></label>
+    </br><label><b>Tertinggi: {{$max_transaksi_tanggal_ini}}</b></label>
+    </br><label><b>Rata-rata: {{$rata_transaksi_tanggal_ini}}</b></label>
+    </br>
+    </br>
+    <div class="box-body table-responsive">
+      <p  style="font-size:20px;">Dari Input Pendapatan:</p>
+      <table class = "table table-bordered table-hover table-sm" border="0" cellpadding="" cellspacing="">
+        <thead class="thead-light">
+          <th>ID</th>
+          <th>Nama Pelanggan</th>
+          <th>Total</th>
+          <th>Keterangan</th>
+          <th>Waktu Dibuat</th>
+          <th>Waktu Diubah</th>
+        </thead>
+        <tbody>
+          @foreach($data_pendapatan_tanggal_ini as $pendapatan)
           <tr>
             <td>{{$pendapatan->id}}</td>
-            <td>Pelanggan: {{$pendapatan->nama_pelanggan}}</td>
-            <td>{{$pendapatan->total_harga}}</td>
+            <td>{{$pendapatan->deskripsi}}</td>
+            <td>{{$pendapatan->total}}</td>
             <td>{{$pendapatan->keterangan}}</td>
             <td>{{$pendapatan->created_at}}</td>
             <td>{{$pendapatan->updated_at}}</td>
@@ -30,9 +66,9 @@
       {{ $data_pendapatan_tanggal_ini->links() }}
     </div>
     <label><b>Total Pendapatan: {{$sum_pendapatan_tanggal_ini}}</b></label>
-    </br><label><b>Banyaknya Pendapatan: {{$frekuensi_pendapatan_tanggal_ini}}</b></label>
-    </br><label><b>Pendapatan Terendah: {{$min_pendapatan_tanggal_ini}}</b></label>
-    </br><label><b>Pendapatan Tertinggi: {{$max_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Frekuensi: {{$frekuensi_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Terendah: {{$min_pendapatan_tanggal_ini}}</b></label>
+    </br><label><b>Tertinggi: {{$max_pendapatan_tanggal_ini}}</b></label>
     </br><label><b>Rata-rata: {{$rata_pendapatan_tanggal_ini}}</b></label>
   </div>
 </div>

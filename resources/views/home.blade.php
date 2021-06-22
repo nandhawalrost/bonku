@@ -5,7 +5,7 @@
 Selamat datang, <b> {{ Auth::user()->name }}! </b> 
 <br></br>
 </br>
-Kami <b>Bonqu</b> ingin usaha mikro dapat menikmati teknologi <b>terkini</b> secara <b>mudah,murah, dan aman</b>.
+Kami <b>Bonqu</b> ingin usaha mikro dapat menikmati teknologi <b>terkini</b> secara <b>mudah, murah, dan aman</b>.
 <br></br>
 Dukung kami ya! &#10084;
 </p>

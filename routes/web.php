@@ -60,6 +60,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('edit_rincian/{id}/destroy_rincian','DestroyRincianController@destroy_rincian');
     });
 
+    //INPUT PENGELUARAN
     Route::prefix('standard_user/menu/pengeluaran')->group(function () {
         Route::get('', 'PengeluaranController@pengeluaran'); 
         Route::post('/store','PengeluaranController@store');
@@ -70,6 +71,7 @@ Route::group(['middleware' => ['auth']], function() {
         Route::get('search_pengeluaran','PengeluaranController@search_pengeluaran');
     });
 
+    //INPUT PENDAPATAN
     Route::prefix('standard_user/menu/pendapatan')->group(function () {
         Route::get('', 'PendapatanController@pendapatan'); 
         Route::post('/store','PendapatanController@store');
