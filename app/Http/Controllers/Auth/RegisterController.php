@@ -29,13 +29,14 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
-
+   // protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/logout';
     /**
      * Create a new controller instance.
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('guest');
@@ -62,12 +63,15 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
+
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+            $reference_id = mt_rand( 1000000000, 9999999999 );
+
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'].'_deactivated'.$reference_id,
+                'password' => Hash::make($data['password']),
+            ]);
     }
 }

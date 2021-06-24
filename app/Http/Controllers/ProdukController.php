@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class ProdukController extends Controller
 {
+    private $user_email;
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user_email = Auth::user()->email;
+
+            return $next($request);
+        });
+    }
+    
     public function produk()
     {
-        $user_email = Auth::user()->email;
-        
         $data_produk = DB::table('produk')
-        ->where('user_email', $user_email)
+        ->where('user_email', $this->user_email)
         ->paginate(10);
 
         return view('menu.produk.index', compact('data_produk'));
@@ -21,7 +30,6 @@ class ProdukController extends Controller
 
     public function store(Request $request)
     {
-        $user_email = Auth::user()->email;
 
         $validatedData = $request->validate([
             'nama_produk' => 'required|unique:produk|max:30',
@@ -69,7 +77,7 @@ class ProdukController extends Controller
             'jumlah_maksimum'=>$jumlah_maksimum,
             'harga'=>$harga,
             'satuan'=>$satuan,
-            'user_email'=>$user_email,
+            'user_email'=>$this->user_email,
             "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
         ]);
 
@@ -78,15 +86,16 @@ class ProdukController extends Controller
 
     public function edit($id)
     {
-        $user_email = Auth::user()->email;
-        $data_produk = DB::table('produk')->where('user_email','=',$user_email)->where('id', $id)->first(); //or find()
+        $data_produk = DB::table('produk')
+        ->where('user_email','=', $this->user_email)
+        ->where('id', $id)
+        ->first(); //or find()
+
         return view('menu.produk.edit',['produk' => $data_produk]);
     }
 
     public function update(Request $request, $id) //update (reduce balance)
     {
-        $user_email = Auth::user()->email;
-
         $validatedData = $request->validate([
             'nama_produk' => 'required|max:30',
             'jumlah' => 'max:11',
@@ -106,7 +115,7 @@ class ProdukController extends Controller
 
         $carbon_now = \Carbon\Carbon::now()->setTimezone('Asia/Bangkok');
 
-        $update_need_order = DB::table('produk')
+        $update_produk = DB::table('produk')
         ->where('id', $request->id)->update([
             'nama_produk'=>$nama_produk,
             'jumlah'=>$jumlah,
@@ -114,7 +123,7 @@ class ProdukController extends Controller
             'jumlah_maksimum'=>$jumlah_maksimum,
             'harga'=>$harga,
             'satuan'=>$satuan,
-            'user_email'=>$user_email,
+            'user_email'=>$this->user_email,
             "updated_at" =>  $carbon_now
         ]);
 
@@ -124,27 +133,31 @@ class ProdukController extends Controller
     public function delete_confirmation($id)
     {
         //select ds8 where id
-        $data_produk = DB::table('produk')->where('id', $id)->first(); //or find()
+        $data_produk = DB::table('produk')
+        ->where('id', $id)
+        ->where('user_email', $this->user_email)
+
+        ->first(); //or find()
         return view('menu.produk.delete_confirmation',['produk' => $data_produk]);
-        
     }
 
     public function destroy($id)
     {
-        DB::table('produk')->where('id', '=', $id)->delete();
+        DB::table('produk')
+        ->where('id', '=', $id)
+        ->where('user_email', $this->user_email)
+        ->delete();
 
         return redirect('/standard_user/menu/produk')->with('delete_succeed','Deleted!');
     }
 
     public function search_produk(Request $request)
     {
-        $user_email = Auth::user()->email;
-
         $nama_produk = $request->get('nama_produk');
         
         $search_produk = DB::table('produk')
         ->where('nama_produk', 'like', '%' .$nama_produk. '%')
-        ->where('user_email', $user_email)
+        ->where('user_email', $this->user_email)
         ->paginate(10);
 
         $search_produk->appends($request->all());

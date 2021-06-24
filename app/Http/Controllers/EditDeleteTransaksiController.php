@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class EditDeleteTransaksiController extends Controller
 {
+    private $user_email;
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user_email = Auth::user()->email;
+
+            return $next($request);
+        });
+    }
+
     public function edit_delete_transaksi()
     {
-        $user_email = Auth::user()->email;
-        
         $data_transaksi = DB::table('transaksi')
-        ->where('user_email', $user_email)
+        ->where('user_email', $this->user_email)
         ->paginate(10);
         
         return view('menu.transaksi.edit_delete_transaksi.index', compact('data_transaksi'));
@@ -25,12 +34,12 @@ class EditDeleteTransaksiController extends Controller
 
         DB::table('transaksi')
         ->where('id', '=', $id)
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->delete();
         
         DB::table('rincian_transaksi')
         ->where('id_transaksi', '=', $id)
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->delete();
 
         return redirect('/standard_user/menu/transaksi/edit_delete_transaksi')->with('delete_succeed','Deleted!');
@@ -42,7 +51,7 @@ class EditDeleteTransaksiController extends Controller
         
         //select * from rincian_transaksi
         $data_rincian = DB::table('rincian_transaksi')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->where('id_transaksi','=',$id)
         ->paginate(10); //or find()
 
@@ -58,7 +67,7 @@ class EditDeleteTransaksiController extends Controller
         
         //select * from transaksi
         $data_transaksi = DB::table('transaksi')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->where('id',$id)
         ->first();
 
@@ -91,7 +100,7 @@ class EditDeleteTransaksiController extends Controller
             'total_harga'=>$total_harga,
             'total_bayar'=>$total_bayar,
             'total_kembali'=>$total_kembali,
-            'user_email'=>$user_email
+            'user_email'=>$this->user_email
         ]);
 
         return redirect('/standard_user/menu/transaksi/edit_delete_transaksi')->with('succeed','Sent!');

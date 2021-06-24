@@ -8,12 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class PengeluaranController extends Controller
 {
+    private $user_email;
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user_email = Auth::user()->email;
+
+            return $next($request);
+        });
+    }
+
     public function pengeluaran()
     {
-        $user_email = Auth::user()->email;
-
         $data_pengeluaran = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->orderByDesc('id')
         ->paginate(10);
         
@@ -22,8 +31,6 @@ class PengeluaranController extends Controller
 
     public function store(Request $request)
     {
-        $user_email = Auth::user()->email;
-
         $validatedData = $request->validate([
             'deskripsi' => 'required|unique:pengeluaran|max:255',
             'jumlah' => 'max:11',
@@ -45,7 +52,7 @@ class PengeluaranController extends Controller
             'deskripsi'=>$deskripsi,
             'total'=>$total,
             'keterangan'=>$keterangan,
-            'user_email'=>$user_email,
+            'user_email'=>$this->user_email,
             "created_at" =>  $carbon_now # new \Datetime() | get timezone from php timezone list
         ]);
 
@@ -54,9 +61,8 @@ class PengeluaranController extends Controller
 
     public function edit($id)
     {
-        $user_email = Auth::user()->email;
         $data_pengeluaran = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->where('id', $id)->first(); //or find()
         
         return view('menu.pengeluaran.edit',['pengeluaran' => $data_pengeluaran]);
@@ -64,8 +70,6 @@ class PengeluaranController extends Controller
 
     public function update(Request $request, $id) //update (reduce balance)
     {
-        $user_email = Auth::user()->email;
-        
         $validatedData = $request->validate([
             'deskripsi' => 'required|max:255',
             'jumlah' => 'max:11',
@@ -83,7 +87,7 @@ class PengeluaranController extends Controller
             'deskripsi'=>$deskripsi,
             'total'=>$total,
             'keterangan'=>$keterangan,
-            'user_email'=>$user_email,
+            'user_email'=>$this->user_email,
             "updated_at" =>  $carbon_now
         ]);
 
@@ -92,10 +96,8 @@ class PengeluaranController extends Controller
 
     public function delete_confirmation($id)
     {
-        $user_email = Auth::user()->email;
-
         $data_pengeluaran = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->where('id', $id)
         ->first();
         
@@ -104,10 +106,8 @@ class PengeluaranController extends Controller
 
     public function destroy($id)
     {
-        $user_email = Auth::user()->email;
-
         DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->where('id', '=', $id)
         ->delete();
 
@@ -116,13 +116,11 @@ class PengeluaranController extends Controller
 
     public function search_pengeluaran(Request $request)
     {
-        $user_email = Auth::user()->email;
-
         $deskripsi = $request->get('deskripsi');
         
         $search_pengeluaran = DB::table('pengeluaran')
         ->where('deskripsi', 'like', '%' .$deskripsi. '%')
-        ->where('user_email', $user_email)
+        ->where('user_email', $this->user_email)
         ->paginate(10);
 
         $search_pengeluaran->appends($request->all());

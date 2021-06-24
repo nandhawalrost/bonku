@@ -63,10 +63,10 @@
           </ul>
         </li>
       </ul>
-      <form class="d-flex">
+      <!--form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Fitur atau Petunjuk" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Cari</button>
-      </form>
+      </form-->
     </div>
   </div>
 </nav>

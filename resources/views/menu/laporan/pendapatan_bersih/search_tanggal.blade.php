@@ -1,8 +1,8 @@
 @include('header.index')
 
 <div class="container-sm">
-    <h3>Pendapatan Bersih Hari Ini: </h3>
-    <h3><b>Rp{{$pendapatan_bersih_hari_ini}}</b></h3>
+    <h3>Pendapatan Bersih Tanggal Ini: </h3>
+    <h3><b>Rp{{$pendapatan_bersih_tanggal_ini}}</b></h3>
     </br>
 </div>
 

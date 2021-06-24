@@ -26,35 +26,42 @@ Route::group(['middleware' => ['auth']], function() {
         return view('home');
     });
 
+    //INPUT MENU
     Route::prefix('standard_user/menu/produk')->group(function () { // url example: "/standard_user/produk"
-        Route::get('', 'ProdukController@produk'); 
-        Route::post('/store','ProdukController@store');
-        Route::get('/{id}/edit','ProdukController@edit');
-        Route::post('/{id}/update','ProdukController@update');
-        Route::get('/{id}/delete_confirmation','ProdukController@delete_confirmation');
-        Route::get('/{id}/destroy','ProdukController@destroy');
-        Route::get('search_produk','ProdukController@search_produk');
+        $controller = 'ProdukController';
+
+        Route::get('', $controller.'@produk'); 
+        Route::post('/store', $controller.'@store');
+        Route::get('/{id}/edit', $controller.'@edit');
+        Route::post('/{id}/update', $controller.'@update');
+        Route::get('/{id}/delete_confirmation', $controller.'@delete_confirmation');
+        Route::get('/{id}/destroy', $controller.'@destroy');
+        Route::get('search_produk', $controller.'@search_produk');
     });
 
 
     //PEMBAYARAN
     Route::prefix('standard_user/menu/transaksi')->group(function () { 
-        Route::get('', 'TransaksiController@transaksi');
-        Route::post('/store_transaksi','TransaksiController@store_transaksi'); 
-        Route::get('/{id}/destroy_rincian','TransaksiController@destroy_rincian');
-        Route::post('/buat_transaksi_baru','TransaksiController@buat_transaksi_baru');
-        Route::post('/cetak_transaksi','TransaksiController@cetak_transaksi');
+        $controller = 'TransaksiController';
+
+        Route::get('', $controller.'@transaksi');
+        Route::post('/store_transaksi', $controller.'@store_transaksi'); 
+        Route::get('/{id}/destroy_rincian', $controller.'@destroy_rincian');
+        Route::post('/buat_transaksi_baru', $controller.'@buat_transaksi_baru');
+        Route::post('/cetak_transaksi', $controller.'@cetak_transaksi');
     });
 
     //EDIT, DELETE TRANSAKSI
     Route::prefix('standard_user/menu/transaksi/edit_delete_transaksi')->group(function () { 
-        Route::get('', 'EditDeleteTransaksiController@edit_delete_transaksi');
-        Route::get('/{id}/edit','EditDeleteTransaksiController@edit');
-        Route::post('/{id}/update','EditDeleteTransaksiController@update');
-        Route::get('/{id}/destroy_transaksi','EditDeleteTransaksiController@destroy_transaksi');
-        Route::get('/{id}/edit_rincian','EditDeleteTransaksiController@edit_rincian');
-        Route::get('/{id}/edit_nominal','EditDeleteTransaksiController@edit_nominal');
-        Route::post('/{id}/update_nominal','EditDeleteTransaksiController@update_nominal');
+        $controller = 'EditDeleteTransaksiController';
+
+        Route::get('', '@edit_delete_transaksi');
+        Route::get('/{id}/edit', $controller.'@edit');
+        Route::post('/{id}/update', $controller.'@update');
+        Route::get('/{id}/destroy_transaksi', $controller.'@destroy_transaksi');
+        Route::get('/{id}/edit_rincian', $controller.'@edit_rincian');
+        Route::get('/{id}/edit_nominal', $controller.'@edit_nominal');
+        Route::post('/{id}/update_nominal', $controller.'@update_nominal');
 
         //DestroyRincianController
         Route::get('edit_rincian/{id}/destroy_rincian','DestroyRincianController@destroy_rincian');
@@ -62,28 +69,31 @@ Route::group(['middleware' => ['auth']], function() {
 
     //INPUT PENGELUARAN
     Route::prefix('standard_user/menu/pengeluaran')->group(function () {
-        Route::get('', 'PengeluaranController@pengeluaran'); 
-        Route::post('/store','PengeluaranController@store');
-        Route::get('/{id}/edit','PengeluaranController@edit');
-        Route::post('/{id}/update','PengeluaranController@update');
-        Route::get('/{id}/delete_confirmation','PengeluaranController@delete_confirmation');
-        Route::get('/{id}/destroy','PengeluaranController@destroy');
-        Route::get('search_pengeluaran','PengeluaranController@search_pengeluaran');
+        $controller = 'PengeluaranController';
+
+        Route::get('', $controller.'@pengeluaran'); 
+        Route::post('/store', $controller.'@store');
+        Route::get('/{id}/edit', $controller.'@edit');
+        Route::post('/{id}/update', $controller.'@update');
+        Route::get('/{id}/delete_confirmation', $controller.'@delete_confirmation');
+        Route::get('/{id}/destroy', $controller.'@destroy');
+        Route::get('search_pengeluaran', $controller.'@search_pengeluaran');
     });
 
     //INPUT PENDAPATAN
     Route::prefix('standard_user/menu/pendapatan')->group(function () {
-        Route::get('', 'PendapatanController@pendapatan'); 
-        Route::post('/store','PendapatanController@store');
-        Route::get('/{id}/edit','PendapatanController@edit');
-        Route::post('/{id}/update','PendapatanController@update');
-        Route::get('/{id}/delete_confirmation','PendapatanController@delete_confirmation');
-        Route::get('/{id}/destroy','PendapatanController@destroy');
-        Route::get('search_pendapatan','PendapatanController@search_pendapatan');
+        $controller = 'PendapatanController';
+
+        Route::get('', $controller.'@pendapatan'); 
+        Route::post('/store', $controller.'@store');
+        Route::get('/{id}/edit', $controller.'@edit');
+        Route::post('/{id}/update', $controller.'@update');
+        Route::get('/{id}/delete_confirmation', $controller.'@delete_confirmation');
+        Route::get('/{id}/destroy', $controller.'@destroy');
+        Route::get('search_pendapatan', $controller.'@search_pendapatan');
     });
     
-    //LAPORAN
-
+//=================LAPORAN=========================
     //LAPORAN PENGELUARAN
     Route::prefix('standard_user/menu/laporan/pengeluaran/pengeluaran_harian')->group(function () {
         Route::get('','PengeluaranHarianController@pengeluaran_harian');
@@ -104,7 +114,7 @@ Route::group(['middleware' => ['auth']], function() {
     //LAPORAN PENDAPATAN BERSIH
     Route::prefix('standard_user/menu/laporan/pendapatan/pendapatan_bersih_harian')->group(function () {
         Route::get('','PendapatanBersihHarianController@pendapatan_bersih_harian');
-        //Route::get('/search_tanggal','PendapatanHarianController@search_tanggal');
+        Route::get('/search_tanggal','PendapatanBersihHarianController@search_tanggal');
     });
 
 });

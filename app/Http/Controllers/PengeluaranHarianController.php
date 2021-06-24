@@ -9,37 +9,46 @@ use Carbon\Carbon;
 
 class PengeluaranHarianController extends Controller
 {
+    private $user_email;
+    
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user_email = Auth::user()->email;
+
+            return $next($request);
+        });
+    }
+    
     public function pengeluaran_harian()
     {
-        $user_email = Auth::user()->email;
-
         //select berdasarkan method today()
         $data_pengeluaran_hari_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', Carbon::today())
         ->paginate(10);
 
         //sum total pengeluaran
         $sum_pengeluaran_hari_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', Carbon::today())
         ->sum('total');
 
         //frekuensi
         $frekuensi_pengeluaran_hari_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', Carbon::today())
         ->count();
 
         //pengeluaran dengan total terendah
         $min_pengeluaran_hari_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', Carbon::today())
         ->min('total');
 
         //pengeluaran dengan total tertinggi
         $max_pengeluaran_hari_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', Carbon::today())
         ->max('total');
         
@@ -66,36 +75,34 @@ class PengeluaranHarianController extends Controller
 
     public function search_tanggal(Request $request)
     {
-        $user_email = Auth::user()->email;
-
         $tanggal = $request->get('tanggal');
 
         $search_pengeluaran_tanggal_ini = DB::table('pengeluaran')
-        ->where('user_email', $user_email)
+        ->where('user_email', $this->user_email)
         ->whereDate('created_at', '=', date($tanggal)) //date('2021-06-13'.'00:00:00') to add hour
         ->paginate(10);
 
         //sum pengeluaran
         $sum_pengeluaran_tanggal_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', '=', date($tanggal))
         ->sum('total');
 
         //frekuensi
         $frekuensi_pengeluaran_tanggal_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', '=', date($tanggal))
         ->count();
 
         //pengeluaran dengan total terendah
         $min_pengeluaran_tanggal_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', '=', date($tanggal))
         ->min('total');
 
         //pengeluaran dengan total tertinggi
         $max_pengeluaran_tanggal_ini = DB::table('pengeluaran')
-        ->where('user_email','=',$user_email)
+        ->where('user_email','=', $this->user_email)
         ->whereDate('created_at', '=', date($tanggal))
         ->max('total');
 
