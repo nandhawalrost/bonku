@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::prefix('standard_user/menu/transaksi/edit_delete_transaksi')->group(function () { 
         $controller = 'EditDeleteTransaksiController';
 
-        Route::get('', '@edit_delete_transaksi');
+        Route::get('', $controller.'@edit_delete_transaksi');
         Route::get('/{id}/edit', $controller.'@edit');
         Route::post('/{id}/update', $controller.'@update');
         Route::get('/{id}/destroy_transaksi', $controller.'@destroy_transaksi');
