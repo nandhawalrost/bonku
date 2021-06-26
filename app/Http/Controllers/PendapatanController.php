@@ -32,7 +32,7 @@ class PendapatanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'deskripsi' => 'required|unique:pendapatan|max:255',
+            'deskripsi' => 'required|max:255',
             'jumlah' => 'max:11',
             'keterangan' => 'max:255'
         ]);

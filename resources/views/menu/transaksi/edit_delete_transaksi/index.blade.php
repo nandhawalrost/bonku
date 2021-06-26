@@ -15,7 +15,7 @@
 </div>
 
 <div class="container-sm">
-
+<p>*<b>Perhatian!</b> Setelah meneken tombol <b>Hapus Transaksi</b>, stok produk tidak berubah secara otomatis, hal ini kami lakukan demi menghindari data yang tidak akurat. Klik <b>Edit Rincian</b> lalu <b>Hapus Rincian</b> secara bertahap untuk melakukan perubahan otomatis pada produk.</p>
 <div class="box">
   <div class="box-header">
     <div class="box-body table-responsive">
@@ -49,7 +49,7 @@
               <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/edit_rincian">Edit Rincian</a>
             </td>
             <td>
-              <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/destroy_transaksi">Hapus</a>
+              <a href="/standard_user/menu/transaksi/edit_delete_transaksi/{{$transaksi->id}}/destroy_transaksi">Hapus Transaksi</a>
             </td>
           </tr>
           @endforeach

@@ -32,7 +32,7 @@ class ProdukController extends Controller
     {
 
         $validatedData = $request->validate([
-            'nama_produk' => 'required|unique:produk|max:30',
+            'nama_produk' => 'required|max:30',
             'jumlah' => 'max:11',
             'jumlah_minimum' => 'max:11',
             'jumlah_maksimum' => 'max:11',
