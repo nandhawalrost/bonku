@@ -8,12 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class TransaksiController extends Controller
 {
+    //return user nifo
     private $user_email;
+    private $user_name;
     
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
             $this->user_email = Auth::user()->email;
+            $this->user_name = Auth::user()->name;
 
             return $next($request);
         });
@@ -63,6 +66,7 @@ class TransaksiController extends Controller
         ->get()
         ->sum('sub_total');
 
+        $user_name = $this->user_name;
         //jika sub total terakhir dari tabel rincian_transaksi = 0
         if($sum_sub_total_terakhir == 0)
         {

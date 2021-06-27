@@ -30,7 +30,7 @@
               <a href="#!" class="text-white">Facebook</a>
             </li>
             <li>
-              <a href="#!" class="text-white">Instagram</a>
+              <a href="https://instagram.com/bonqu.online" class="text-white">Instagram</a>
             </li>
           </ul>
         </div>
@@ -58,7 +58,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       © 2021 Copyright:
-      <a class="text-white" href="https://bonku.online">https://bonku.online</a>
+      <a class="text-white" href="https://bonqu.online">https://bonqu.online</a>
     </div>
     <!-- Copyright -->
   </footer>
